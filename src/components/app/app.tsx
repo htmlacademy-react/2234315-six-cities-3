@@ -1,4 +1,4 @@
-import HomePage from '../pages/home-page/home-page';
+import Home from '../../pages/home/home';
 
 type AppProps = {
   numberOfPlacements: number;
@@ -6,7 +6,7 @@ type AppProps = {
 
 function App({numberOfPlacements}: AppProps): JSX.Element {
   return (
-    <HomePage numberOfPlacements={numberOfPlacements} />
+    <Home numberOfPlacements={numberOfPlacements} />
   );
 }
 

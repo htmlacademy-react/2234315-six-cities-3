@@ -1,10 +1,10 @@
-import PlaceCard from '../../components/place-card';
+import PlaceCard from '../../components/place-card/place-card';
 
-type HomePageProps = {
+type HomeProps = {
   numberOfPlacements: number;
 }
 
-function HomePage({numberOfPlacements}: HomePageProps): JSX.Element {
+function Home({numberOfPlacements}: HomeProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -111,4 +111,4 @@ function HomePage({numberOfPlacements}: HomePageProps): JSX.Element {
   );
 }
 
-export default HomePage;
+export default Home;
