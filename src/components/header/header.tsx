@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 type HeaderProps = {
   isLoginPage?: boolean;
   isUserLoggedIn?: boolean;
@@ -9,9 +11,9 @@ function Header({isLoginPage, isUserLoggedIn}: HeaderProps): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <a className="header__logo-link" href="main.html">
+            <Link className="header__logo-link" to="/">
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-            </a>
+            </Link>
           </div>
           {!isLoginPage &&
             <nav className="header__nav">
@@ -19,25 +21,24 @@ function Header({isLoginPage, isUserLoggedIn}: HeaderProps): JSX.Element {
                 {isUserLoggedIn ? (
                   <>
                     <li className="header__nav-item user">
-                      <a className="header__nav-link header__nav-link--profile" href="#">
-                        <div className="header__avatar-wrapper user__avatar-wrapper">
-                        </div>
+                      <Link className="header__nav-link header__nav-link--profile" to="/favorites">
+                        <div className="header__avatar-wrapper user__avatar-wrapper" />
                         <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                         <span className="header__favorite-count">3</span>
-                      </a>
+                      </Link>
                     </li>
                     <li className="header__nav-item">
-                      <a className="header__nav-link" href="#">
+                      <Link className="header__nav-link" to="/login">
                         <span className="header__signout">Sign out</span>
-                      </a>
+                      </Link>
                     </li>
                   </>
                 ) : (
                   <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
+                    <Link className="header__nav-link header__nav-link--profile" to="/login">
                       <div className="header__avatar-wrapper user__avatar-wrapper" />
                       <span className="header__login">Sign in</span>
-                    </a>
+                    </Link>
                   </li>
                 )}
               </ul>
