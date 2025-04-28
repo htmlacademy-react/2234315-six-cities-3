@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import PlaceCard from '../../components/place-card/place-card';
@@ -6,6 +7,9 @@ import PlaceCard from '../../components/place-card/place-card';
 function Favorites(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>Favorites | 6 cities - Official Website</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
