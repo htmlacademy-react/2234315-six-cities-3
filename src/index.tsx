@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { HomePageData } from './const';
+import { HomePageData } from './utils/const';
 import { offers } from './mocks/offers';
 
 const root = ReactDOM.createRoot(
