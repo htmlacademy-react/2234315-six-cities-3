@@ -1,6 +1,6 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {HelmetProvider} from 'react-helmet-async';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import Home from '../../pages/home/home';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
