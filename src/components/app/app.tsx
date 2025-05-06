@@ -7,12 +7,14 @@ import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
+import { Offers } from '../../types/offer';
 
 type AppProps = {
   numberOfPlacements: number;
+  offers: Offers;
 }
 
-function App({numberOfPlacements}: AppProps): JSX.Element {
+function App({numberOfPlacements, offers}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
