@@ -1,7 +1,3 @@
-export const HomePageData = {
-  NumberOfPlacements: 312
-};
-
 export const OFFER_MAX_RATING = 5;
 
 export enum AppRoute {

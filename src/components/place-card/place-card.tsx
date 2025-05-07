@@ -4,11 +4,11 @@ import { getRatingPercent } from '../../utils/tools';
 import { AppRoute } from '../../utils/const';
 
 type PlaceCardProps = {
-  cardType?: string;
   cardInfo: Offer;
+  cardType?: string;
 }
 
-function PlaceCard({cardType, cardInfo}: PlaceCardProps): JSX.Element {
+function PlaceCard({cardInfo, cardType}: PlaceCardProps): JSX.Element {
   return (
     <article className={`${cardType ? `${cardType}__card` : ''} place-card`}>
       {cardInfo.isPremium &&
@@ -20,8 +20,8 @@ function PlaceCard({cardType, cardInfo}: PlaceCardProps): JSX.Element {
           <img
             className="place-card__image"
             src={cardInfo.previewImage}
-            width="260"
-            height="200"
+            width={cardType === 'favorites' ? '150' : '260'}
+            height={cardType === 'favorites' ? '110' : '200'}
             alt={cardInfo.title}
           />
         </Link>

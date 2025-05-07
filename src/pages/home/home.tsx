@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import PlaceCard from '../../components/place-card/place-card';
+import { Offers } from '../../types/offer';
+import PlacesList from '../../components/places-list/places-list';
 
 type HomeProps = {
-  numberOfPlacements: number;
+  offers: Offers;
 }
 
-function Home({numberOfPlacements}: HomeProps): JSX.Element {
+function Home({offers}: HomeProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -56,7 +57,7 @@ function Home({numberOfPlacements}: HomeProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{numberOfPlacements} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -73,11 +74,10 @@ function Home({numberOfPlacements}: HomeProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard cardType="cities" />
-                <PlaceCard cardType="cities" />
-                <PlaceCard cardType="cities" />
-                <PlaceCard cardType="cities" />
-                <PlaceCard cardType="cities" />
+                <PlacesList
+                  cardType="cities"
+                  places={offers}
+                />
               </div>
             </section>
             <div className="cities__right-section">

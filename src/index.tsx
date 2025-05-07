@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { HomePageData } from './utils/const';
 import { offers } from './mocks/offers';
 
 const root = ReactDOM.createRoot(
@@ -11,7 +10,6 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App
-      numberOfPlacements={HomePageData.NumberOfPlacements}
       offers={offers}
     />
   </React.StrictMode>

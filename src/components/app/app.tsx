@@ -10,18 +10,17 @@ import PrivateRoute from '../private-route/private-route';
 import { Offers } from '../../types/offer';
 
 type AppProps = {
-  numberOfPlacements: number;
   offers: Offers;
 }
 
-function App({numberOfPlacements, offers}: AppProps): JSX.Element {
+function App({offers}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<Home numberOfPlacements={numberOfPlacements} />}
+            element={<Home offers={offers} />}
           />
           <Route
             path={AppRoute.Login}

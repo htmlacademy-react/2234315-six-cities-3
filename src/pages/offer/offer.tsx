@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import PlaceCard from '../../components/place-card/place-card';
+import PlacesList from '../../components/places-list/places-list';
+import { nearbyOffers } from '../../mocks/offers';
 
 function Offer(): JSX.Element {
   return (
@@ -209,9 +210,10 @@ function Offer(): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <PlaceCard cardType="near-places" />
-              <PlaceCard cardType="near-places" />
-              <PlaceCard cardType="near-places" />
+              <PlacesList
+                cardType="near-places"
+                places={nearbyOffers}
+              />
             </div>
           </section>
         </div>
