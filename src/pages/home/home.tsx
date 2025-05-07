@@ -87,7 +87,9 @@ function Home({offers}: HomeProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <p>{activeOfferId}</p>
+              </section>
             </div>
           </div>
         </div>
