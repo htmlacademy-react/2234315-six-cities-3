@@ -6,11 +6,17 @@ import { AppRoute, OFFER_MAX_RATING } from '../../utils/const';
 type PlaceCardProps = {
   cardInfo: Offer;
   cardType?: string;
+  onMouseEnter?: (id: string) => void;
+  onMouseLeave?: () => void;
 }
 
-function PlaceCard({cardInfo, cardType}: PlaceCardProps): JSX.Element {
+function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardProps): JSX.Element {
   return (
-    <article className={`${cardType ? `${cardType}__card` : ''} place-card`}>
+    <article
+      className={`${cardType ? `${cardType}__card` : ''} place-card`}
+      onMouseEnter={() => onMouseEnter?.(cardInfo.id)}
+      onMouseLeave={() => onMouseLeave?.()}
+    >
       {cardInfo.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
