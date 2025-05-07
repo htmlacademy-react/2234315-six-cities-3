@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+
 import Header from '../../components/header/header';
-import { Offers } from '../../types/offer';
 import PlacesList from '../../components/places-list/places-list';
+
+import { Offers } from '../../types/offer';
 
 type HomeProps = {
   offers: Offers;

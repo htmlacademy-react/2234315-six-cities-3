@@ -16,7 +16,7 @@ export const reviews:Reviews = [
     id: '8adaef83-652e-4af7-be24-c4803f8074a6',
     comment: 'The deluxe room was a quite comfortable one with all the adequate facilities. The only thing that made me feel uncomfortable was the rude behavior of an impolite staff at the reception desk.',
     date: '2025-04-11T21:00:00.084Z',
-    rating: 2,
+    rating: 4,
     user: {
       name: 'Emely',
       avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/9.jpg',

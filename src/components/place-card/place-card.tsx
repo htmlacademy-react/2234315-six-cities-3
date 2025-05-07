@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
 import { getRatingPercent } from '../../utils/tools';
-import { AppRoute } from '../../utils/const';
+import { AppRoute, OFFER_MAX_RATING } from '../../utils/const';
 
 type PlaceCardProps = {
   cardInfo: Offer;
@@ -44,7 +44,7 @@ function PlaceCard({cardInfo, cardType}: PlaceCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: getRatingPercent(cardInfo.rating) }}></span>
+            <span style={{ width: getRatingPercent(cardInfo.rating, OFFER_MAX_RATING) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

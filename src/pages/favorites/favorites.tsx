@@ -1,7 +1,9 @@
 import { Helmet } from 'react-helmet-async';
+
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import FavoriteLocationsList from '../../components/favorite-locations-list/favorite-locations-list';
+
 import { favoriteOffers } from '../../mocks/offers';
 
 function Favorites(): JSX.Element {
