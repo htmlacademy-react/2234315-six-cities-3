@@ -4,9 +4,13 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import FavoriteLocationsList from '../../components/favorite-locations-list/favorite-locations-list';
 
-import { favoriteOffers } from '../../mocks/offers';
+import { Offers } from '../../types/offer';
 
-function Favorites(): JSX.Element {
+type FavoritesProps = {
+  favoriteOffers: Offers;
+}
+
+function Favorites({favoriteOffers}: FavoritesProps): JSX.Element {
   return (
     <div className="page">
       <Helmet>

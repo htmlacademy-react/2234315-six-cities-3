@@ -13,9 +13,10 @@ import { AppRoute, AuthorizationStatus } from '../../utils/const';
 
 type AppProps = {
   offers: Offers;
+  favoriteOffers: Offers;
 }
 
-function App({offers}: AppProps): JSX.Element {
+function App({offers, favoriteOffers}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -34,7 +35,7 @@ function App({offers}: AppProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.NoAuth}
               >
-                <Favorites />
+                <Favorites favoriteOffers={favoriteOffers}/>
               </PrivateRoute>
             }
           />
