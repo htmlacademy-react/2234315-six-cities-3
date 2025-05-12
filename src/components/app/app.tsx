@@ -1,6 +1,6 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {HelmetProvider} from 'react-helmet-async';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+
 import Home from '../../pages/home/home';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
@@ -8,18 +8,22 @@ import Offer from '../../pages/offer/offer';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 
+import { Offers } from '../../types/offer';
+import { AppRoute, AuthorizationStatus } from '../../utils/const';
+
 type AppProps = {
-  numberOfPlacements: number;
+  offers: Offers;
+  favoriteOffers: Offers;
 }
 
-function App({numberOfPlacements}: AppProps): JSX.Element {
+function App({offers, favoriteOffers}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<Home numberOfPlacements={numberOfPlacements} />}
+            element={<Home offers={offers} />}
           />
           <Route
             path={AppRoute.Login}
@@ -31,7 +35,7 @@ function App({numberOfPlacements}: AppProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.NoAuth}
               >
-                <Favorites />
+                <Favorites favoriteOffers={favoriteOffers}/>
               </PrivateRoute>
             }
           />

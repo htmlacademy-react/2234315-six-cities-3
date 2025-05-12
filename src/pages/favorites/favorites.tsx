@@ -1,10 +1,16 @@
-import { Link } from 'react-router-dom';
-import {Helmet} from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
+
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import PlaceCard from '../../components/place-card/place-card';
+import FavoriteLocationsList from '../../components/favorite-locations-list/favorite-locations-list';
 
-function Favorites(): JSX.Element {
+import { Offers } from '../../types/offer';
+
+type FavoritesProps = {
+  favoriteOffers: Offers;
+}
+
+function Favorites({favoriteOffers}: FavoritesProps): JSX.Element {
   return (
     <div className="page">
       <Helmet>
@@ -16,32 +22,7 @@ function Favorites(): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <Link className="locations__item-link" to="#">
-                      <span>Amsterdam</span>
-                    </Link>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <PlaceCard cardType="favorites" />
-                  <PlaceCard cardType="favorites" />
-                </div>
-              </li>
-
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <Link className="locations__item-link" to="#">
-                      <span>Cologne</span>
-                    </Link>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <PlaceCard cardType="favorites" />
-                </div>
-              </li>
+              <FavoriteLocationsList offers={favoriteOffers}/>
             </ul>
           </section>
         </div>

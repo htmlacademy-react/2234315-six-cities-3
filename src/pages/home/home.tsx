@@ -1,13 +1,19 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {Helmet} from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
+
 import Header from '../../components/header/header';
-import PlaceCard from '../../components/place-card/place-card';
+import PlacesList from '../../components/places-list/places-list';
+
+import { Offers } from '../../types/offer';
 
 type HomeProps = {
-  numberOfPlacements: number;
+  offers: Offers;
 }
 
-function Home({numberOfPlacements}: HomeProps): JSX.Element {
+function Home({offers}: HomeProps): JSX.Element {
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -20,7 +26,7 @@ function Home({numberOfPlacements}: HomeProps): JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
+                <Link className="locations__item-link tabs__item tabs__item--active" to="#">
                   <span>Paris</span>
                 </Link>
               </li>
@@ -35,7 +41,7 @@ function Home({numberOfPlacements}: HomeProps): JSX.Element {
                 </Link>
               </li>
               <li className="locations__item">
-                <Link className="locations__item-link tabs__item tabs__item--active" to="#">
+                <Link className="locations__item-link tabs__item" to="#">
                   <span>Amsterdam</span>
                 </Link>
               </li>
@@ -56,13 +62,13 @@ function Home({numberOfPlacements}: HomeProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{numberOfPlacements} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Paris</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
                   Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
+                    <use xlinkHref="#icon-arrow-select" />
                   </svg>
                 </span>
                 <ul className="places__options places__options--custom places__options--opened">
@@ -73,15 +79,17 @@ function Home({numberOfPlacements}: HomeProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard cardType="cities" />
-                <PlaceCard cardType="cities" />
-                <PlaceCard cardType="cities" />
-                <PlaceCard cardType="cities" />
-                <PlaceCard cardType="cities" />
+                <PlacesList
+                  cardType="cities"
+                  places={offers}
+                  onCardHover={setActiveOfferId}
+                />
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <p>{activeOfferId}</p>
+              </section>
             </div>
           </div>
         </div>
