@@ -142,7 +142,7 @@ function Offer(): JSX.Element {
               </section>
             </div>
           </div>
-          <section className='offer__map map'>
+          <section className="offer__map map">
             <Map
               points={nearbyOffers}
             />
