@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 
 import Header from '../../components/header/header';
 import PlacesList from '../../components/places-list/places-list';
+import Map from '../../components/map/map';
 
 import { Offers } from '../../types/offer';
 
@@ -12,7 +13,7 @@ type HomeProps = {
 }
 
 function Home({offers}: HomeProps): JSX.Element {
-  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+  const [activeOfferId, setActiveOfferId] = useState<string | undefined>(undefined);
 
   return (
     <div className="page page--gray page--main">
@@ -87,8 +88,11 @@ function Home({offers}: HomeProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map">
-                <p>{activeOfferId}</p>
+              <section className='cities__map map'>
+                <Map
+                  points={offers}
+                  selectedPointId={activeOfferId}
+                />
               </section>
             </div>
           </div>

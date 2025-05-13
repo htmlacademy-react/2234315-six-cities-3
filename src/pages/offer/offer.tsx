@@ -7,6 +7,7 @@ import ReviewsForm from '../../components/reviews-form/reviews-form';
 
 import { nearbyOffers } from '../../mocks/offers';
 import { reviews } from '../../mocks/reviews';
+import Map from '../../components/map/map';
 
 function Offer(): JSX.Element {
   return (
@@ -141,7 +142,11 @@ function Offer(): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <section className='offer__map map'>
+            <Map
+              points={nearbyOffers}
+            />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
