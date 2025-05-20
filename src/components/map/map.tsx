@@ -38,7 +38,7 @@ function Map({points, selectedPointId}: MapProps): JSX.Element {
 
         marker
           .setIcon(
-            selectedPointId !== undefined && point.id === selectedPointId
+            selectedPointId === point.id
               ? currentCustomIcon
               : defaultCustomIcon
           )

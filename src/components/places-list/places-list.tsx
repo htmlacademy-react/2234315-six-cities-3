@@ -4,7 +4,7 @@ import { Offers } from '../../types/offer';
 type PlacesListProps = {
   cardType?: string;
   places: Offers;
-  onCardHover?: (id: string | undefined) => void;
+  onCardHover?: (id?: string) => void;
 }
 
 function PlacesList({cardType, places, onCardHover}: PlacesListProps): JSX.Element {
@@ -16,7 +16,7 @@ function PlacesList({cardType, places, onCardHover}: PlacesListProps): JSX.Eleme
           cardInfo={place}
           cardType={cardType}
           onMouseEnter={() => onCardHover?.(place.id)}
-          onMouseLeave={() => onCardHover?.(undefined)}
+          onMouseLeave={() => onCardHover?.()}
         />
       ))}
     </>
