@@ -5,15 +5,16 @@ import Header from '../../components/header/header';
 import CitiesList from '../../components/cities-list/cities-list';
 import PlacesList from '../../components/places-list/places-list';
 import Map from '../../components/map/map';
+import PlacesSorting from '../../components/places-sorting/places-sorting';
 
-import { Offers } from '../../types/offer';
+import { useAppSelector } from '../../hooks';
 
-type HomeProps = {
-  offers: Offers;
-}
-
-function Home({offers}: HomeProps): JSX.Element {
+function Home(): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<string | undefined>(undefined);
+
+  const currentCity = useAppSelector((state) => state.city);
+  const allOffers = useAppSelector((state) => state.offers);
+  const filteredOffers = allOffers.filter((offer) => offer.city.name === currentCity.name);
 
   return (
     <div className="page page--gray page--main">
@@ -21,48 +22,46 @@ function Home({offers}: HomeProps): JSX.Element {
         <title>Home | 6 cities - Official Website</title>
       </Helmet>
       <Header />
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${filteredOffers.length === 0 ? 'page__main--index-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <CitiesList />
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Paris</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select" />
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
-              <div className="cities__places-list places__list tabs__content">
-                <PlacesList
-                  cardType="cities"
-                  places={offers}
-                  onCardHover={setActiveOfferId}
-                />
-              </div>
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  points={offers}
-                  selectedPointId={activeOfferId}
-                />
+          {filteredOffers.length !== 0 ? (
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{filteredOffers.length} places to stay in {currentCity.name}</b>
+                <PlacesSorting />
+                <div className="cities__places-list places__list tabs__content">
+                  <PlacesList
+                    cardType="cities"
+                    places={filteredOffers}
+                    onCardHover={setActiveOfferId}
+                  />
+                </div>
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map
+                    points={filteredOffers}
+                    selectedPointId={activeOfferId}
+                  />
+                </section>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="cities__places-container cities__places-container--empty container">
+              <section className="cities__no-places">
+                <div className="cities__status-wrapper tabs__content">
+                  <b className="cities__status">No places to stay available</b>
+                  <p className="cities__status-description">We could not find any property available at the moment in {currentCity.name}</p>
+                </div>
+              </section>
+              <div className="cities__right-section"></div>
+            </div>
+          )}
         </div>
       </main>
     </div>

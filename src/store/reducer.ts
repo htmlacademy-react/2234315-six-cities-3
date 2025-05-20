@@ -2,11 +2,11 @@ import { createReducer } from '@reduxjs/toolkit';
 
 import { setOffers, setActiveCity} from './actions';
 
-import { cities } from '../utils/const';
+import { CITIES } from '../utils/const';
 import { offers } from '../mocks/offers';
 
 const initialState = {
-  city: cities[0],
+  city: CITIES[0],
   offers: offers,
 };
 
