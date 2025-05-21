@@ -8,13 +8,18 @@ import Map from '../../components/map/map';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 
 import { useAppSelector } from '../../hooks';
+import { sortOffers } from '../../utils/tools';
+import { SortType } from '../../utils/const';
 
 function Home(): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<string | undefined>(undefined);
+  const [currentSortType, setCurrentSortType] = useState<SortType>(SortType.Popular);
 
   const currentCity = useAppSelector((state) => state.city);
   const allOffers = useAppSelector((state) => state.offers);
   const filteredOffers = allOffers.filter((offer) => offer.city.name === currentCity.name);
+
+  const sortedOffers = sortOffers(filteredOffers, currentSortType);
 
   return (
     <div className="page page--gray page--main">
@@ -33,11 +38,14 @@ function Home(): JSX.Element {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{filteredOffers.length} places to stay in {currentCity.name}</b>
-                <PlacesSorting />
+                <PlacesSorting
+                  activeSortType={currentSortType}
+                  onChangeSortType={setCurrentSortType}
+                />
                 <div className="cities__places-list places__list tabs__content">
                   <PlacesList
                     cardType="cities"
-                    places={filteredOffers}
+                    places={sortedOffers}
                     onCardHover={setActiveOfferId}
                   />
                 </div>

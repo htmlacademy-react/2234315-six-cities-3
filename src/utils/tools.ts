@@ -1,3 +1,6 @@
+import { Offers } from '../types/offer';
+import { SortType } from './const';
+
 export const getRatingPercent = (rating: number, maxRating: number): string => `${(Math.round(100 / maxRating * rating)).toString()}%`;
 
 export function formatDate(dateString: string, formatType: 'short' | 'full'): string {
@@ -18,5 +21,19 @@ export function formatDate(dateString: string, formatType: 'short' | 'full'): st
     return `${year}-${month}-${day}`;
   } else {
     throw new Error('Invalid format type. Use "full" or "short".');
+  }
+}
+
+export function sortOffers(offers: Offers, sortType: SortType): Offers {
+  switch (sortType) {
+    case SortType.PriceLowToHigh:
+      return [...offers].sort((a, b) => a.price - b.price);
+    case SortType.PriceHighToLow:
+      return [...offers].sort((a, b) => b.price - a.price);
+    case SortType.TopRatedFirst:
+      return [...offers].sort((a, b) => b.rating - a.rating);
+    case SortType.Popular:
+    default:
+      return [...offers];
   }
 }
