@@ -12,18 +12,17 @@ import { Offers } from '../../types/offer';
 import { AppRoute, AuthorizationStatus } from '../../utils/const';
 
 type AppProps = {
-  offers: Offers;
   favoriteOffers: Offers;
 }
 
-function App({offers, favoriteOffers}: AppProps): JSX.Element {
+function App({favoriteOffers}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<Home offers={offers} />}
+            element={<Home/>}
           />
           <Route
             path={AppRoute.Login}

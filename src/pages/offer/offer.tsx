@@ -4,10 +4,10 @@ import Header from '../../components/header/header';
 import PlacesList from '../../components/places-list/places-list';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
+import Map from '../../components/map/map';
 
 import { nearbyOffers } from '../../mocks/offers';
 import { reviews } from '../../mocks/reviews';
-import Map from '../../components/map/map';
 
 function Offer(): JSX.Element {
   return (

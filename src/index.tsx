@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+
 import App from './components/app/app';
-import { offers, favoriteOffers } from './mocks/offers';
+import { store } from './store';
+
+import { favoriteOffers } from './mocks/offers';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -9,9 +13,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      offers={offers}
-      favoriteOffers={favoriteOffers}
-    />
+    <Provider store={store}>
+      <App
+        favoriteOffers={favoriteOffers}
+      />
+    </Provider>
   </React.StrictMode>
 );
