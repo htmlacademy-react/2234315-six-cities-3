@@ -1,6 +1,14 @@
 export const OFFER_MAX_RATING = 5;
 export const COMMENT_MAX_RATING = 5;
 
+export const URL_MARKER_DEFAULT = '/img/pin.svg';
+export const URL_MARKER_CURRENT = '/img/pin-active.svg';
+
+export const BACKEND_URL = 'https://15.design.htmlacademy.pro/six-cities';
+export const REQUEST_TIMEOUT = 5000;
+
+export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -8,10 +16,23 @@ export enum AppRoute {
   Offer = '/offer'
 }
 
+export enum APIRoute {
+  Offers = '/offers',
+  Login = '/login',
+  Logout = '/logout'
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
+  Unknown = 'UNKNOWN'
+}
+
+export enum SortType {
+  Popular = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow = 'Price: high to low',
+  TopRatedFirst = 'Top rated first'
 }
 
 export const COMMENT_RATINGS = [
@@ -19,11 +40,8 @@ export const COMMENT_RATINGS = [
   { value: 4, title: 'good' },
   { value: 3, title: 'not bad' },
   { value: 2, title: 'badly' },
-  { value: 1, title: 'terribly' },
+  { value: 1, title: 'terribly' }
 ];
-
-export const URL_MARKER_DEFAULT = '/img/pin.svg';
-export const URL_MARKER_CURRENT = '/img/pin-active.svg';
 
 export const CITIES = [
   {
@@ -75,10 +93,3 @@ export const CITIES = [
     }
   }
 ];
-
-export enum SortType {
-  Popular = 'Popular',
-  PriceLowToHigh = 'Price: low to high',
-  PriceHighToLow = 'Price: high to low',
-  TopRatedFirst = 'Top rated first'
-}

@@ -12,10 +12,13 @@ function NotFound(): JSX.Element {
       <Header />
       <main className="page__main">
         <section className="not-found">
-          <div className="container">
-            <h1 className="not-found__title">404. Page not found</h1>
-            <p className="not-found__text">Unfortunately, the page you are looking for does not exist.</p>
-            <Link className="not-found__link" to="/">Back to main page</Link>
+          <div className="not-found__container container">
+            <div className="not-found__title">
+              <h1>404</h1>
+            </div>
+            <h2>We are sorry, Page not found!</h2>
+            <p>The page you are looking for might have been removed, had its name changed or is temporarily unavailable.</p>
+            <Link to="/">Back To Homepage</Link>
           </div>
         </section>
       </main>

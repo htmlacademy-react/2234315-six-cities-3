@@ -8,14 +8,17 @@ import Offer from '../../pages/offer/offer';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 
+import { useAppSelector } from '../../hooks';
 import { Offers } from '../../types/offer';
-import { AppRoute, AuthorizationStatus } from '../../utils/const';
+import { AppRoute } from '../../utils/const';
 
 type AppProps = {
   favoriteOffers: Offers;
 }
 
 function App({favoriteOffers}: AppProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -32,7 +35,7 @@ function App({favoriteOffers}: AppProps): JSX.Element {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
+                authorizationStatus={authorizationStatus}
               >
                 <Favorites favoriteOffers={favoriteOffers}/>
               </PrivateRoute>
