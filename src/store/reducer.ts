@@ -5,24 +5,28 @@ import {
   setOffersDataLoadingStatus,
   setOffers,
   setActiveCity,
-  requireAuthorization
+  requireAuthorization,
+  setUserData
 } from './actions';
 
 import { CITIES, AuthorizationStatus } from '../utils/const';
 import { City, Offers } from '../types/offer';
+import { UserData } from '../types/user-data';
 
 type InitalState = {
   city: City;
   offers: Offers;
+  isOffersLoading: boolean;
   authorizationStatus: AuthorizationStatus;
-  isOffersDataLoading: boolean;
+  userData: UserData | null;
 }
 
 const initialState: InitalState = {
   city: CITIES[0],
   offers: [],
+  isOffersLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
-  isOffersDataLoading: false,
+  userData: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -30,17 +34,20 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setActiveCity, (state, action) => {
       state.city = action.payload;
     })
-    .addCase(setOffers, (state, action) => {
-      state.offers = action.payload;
-    })
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
     })
+    .addCase(setOffers, (state, action) => {
+      state.offers = action.payload;
+    })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
-      state.isOffersDataLoading = action.payload;
+      state.isOffersLoading = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserData, (state, action) => {
+      state.userData = action.payload;
     });
 });
 

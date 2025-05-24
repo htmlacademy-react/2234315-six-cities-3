@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
 import Home from '../../pages/home/home';
@@ -6,9 +6,11 @@ import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
 import NotFound from '../../pages/not-found/not-found';
+import HistoryRouter from '../history-route/history-route';
+import LoginRoute from '../login-route/login-route';
 import PrivateRoute from '../private-route/private-route';
 
-import { useAppSelector } from '../../hooks';
+import browserHistory from '../../browser-history';
 import { Offers } from '../../types/offer';
 import { AppRoute } from '../../utils/const';
 
@@ -17,11 +19,9 @@ type AppProps = {
 }
 
 function App({favoriteOffers}: AppProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Main}
@@ -29,14 +29,16 @@ function App({favoriteOffers}: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Login}
-            element={<Login />}
+            element={
+              <LoginRoute>
+                <Login />
+              </LoginRoute>
+            }
           />
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute
-                authorizationStatus={authorizationStatus}
-              >
+              <PrivateRoute>
                 <Favorites favoriteOffers={favoriteOffers}/>
               </PrivateRoute>
             }
@@ -50,7 +52,7 @@ function App({favoriteOffers}: AppProps): JSX.Element {
             element={<NotFound />}
           />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }
