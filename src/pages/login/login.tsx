@@ -9,7 +9,6 @@ import { loginAction } from '../../store/api-actions';
 import { AppRoute, AUTH_PASSWORD_PATTERN } from '../../utils/const';
 
 function Login(): JSX.Element {
-
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 

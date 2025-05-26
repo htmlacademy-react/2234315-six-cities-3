@@ -7,7 +7,6 @@ import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
 import NotFound from '../../pages/not-found/not-found';
 import HistoryRouter from '../history-route/history-route';
-import LoginRoute from '../login-route/login-route';
 import PrivateRoute from '../private-route/private-route';
 
 import browserHistory from '../../browser-history';
@@ -30,9 +29,9 @@ function App({favoriteOffers}: AppProps): JSX.Element {
           <Route
             path={AppRoute.Login}
             element={
-              <LoginRoute>
+              <PrivateRoute isLoginPage>
                 <Login />
-              </LoginRoute>
+              </PrivateRoute>
             }
           />
           <Route

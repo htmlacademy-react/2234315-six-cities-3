@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
-import { getRatingPercent } from '../../utils/tools';
+import { capitalizeFirstLetter, getRatingPercent } from '../../utils/tools';
 import { AppRoute, OFFER_MAX_RATING } from '../../utils/const';
 
 type PlaceCardProps = {
@@ -57,7 +57,7 @@ function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardPr
         <h2 className="place-card__name">
           <Link to={`${AppRoute.Offer}/${cardInfo.id}`}>{cardInfo.title}</Link>
         </h2>
-        <p className="place-card__type">{cardInfo.type}</p>
+        <p className="place-card__type">{capitalizeFirstLetter(cardInfo.type)}</p>
       </div>
     </article>
   );

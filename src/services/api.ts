@@ -42,7 +42,7 @@ export const createAPI = (): AxiosInstance => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = (error.response.data);
 
-        toast.warn(`You are not logged in. ${detailMessage.message}`);
+        toast.warn(detailMessage.message);
       }
 
       throw error;

@@ -11,6 +11,10 @@ export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
 
 export const AUTH_PASSWORD_PATTERN = '^(?=.*[A-Za-z])(?=.*\\d).+$';
 
+export const OFFER_GALLERY_MAX_LENGHT = 6;
+export const OFFER_COMMENTS_MAX_LENGHT = 10;
+export const OFFER_NEARBY_MAX_LENGHT = 3;
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -21,7 +25,9 @@ export enum AppRoute {
 export enum APIRoute {
   Offers = '/offers',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Comments = '/comments',
+  NearbyOffers = '/nearby'
 }
 
 export enum AuthorizationStatus {
@@ -36,6 +42,11 @@ export enum SortType {
   PriceHighToLow = 'Price: high to low',
   TopRatedFirst = 'Top rated first'
 }
+
+export const CommentTextLenght = {
+  Min: 50,
+  Max: 300
+} as const;
 
 export const COMMENT_RATINGS = [
   { value: 5, title: 'perfect' },

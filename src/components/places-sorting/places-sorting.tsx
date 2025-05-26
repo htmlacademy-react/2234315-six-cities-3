@@ -9,7 +9,6 @@ type PlacesSortingProps = {
 function PlacesSorting({activeSortType, onChangeSortType}: PlacesSortingProps): JSX.Element {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
-
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
