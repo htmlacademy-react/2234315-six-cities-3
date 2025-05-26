@@ -1,4 +1,5 @@
 import { Offers } from '../types/offer';
+import { Reviews } from '../types/review';
 import { SortType } from './const';
 
 export const getRatingPercent = (rating: number, maxRating: number): string => `${(Math.round(100 / maxRating * rating)).toString()}%`;
@@ -36,4 +37,20 @@ export function sortOffers(offers: Offers, sortType: SortType): Offers {
     default:
       return [...offers];
   }
+}
+
+export function capitalizeFirstLetter(str: string | undefined): string {
+  if (!str) {
+    return '';
+  }
+
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function sortReviewByNewest(reviews: Reviews): Reviews {
+  return reviews.slice().sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateB.getTime() - dateA.getTime();
+  });
 }

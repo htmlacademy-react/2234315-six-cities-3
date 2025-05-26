@@ -1,15 +1,17 @@
 import { Reviews } from '../../types/review';
-import { getRatingPercent, formatDate } from '../../utils/tools';
-import { COMMENT_MAX_RATING } from '../../utils/const';
+import { getRatingPercent, formatDate, sortReviewByNewest } from '../../utils/tools';
+import { COMMENT_MAX_RATING, OFFER_COMMENTS_MAX_LENGHT } from '../../utils/const';
 
 type ReviewsListProps = {
   reviews: Reviews;
 }
 
 function ReviewsList({reviews}: ReviewsListProps): JSX.Element {
+  const displayedReviews = sortReviewByNewest(reviews).slice(0, OFFER_COMMENTS_MAX_LENGHT);
+
   return (
     <ul className="reviews__list">
-      {reviews.map((review) => (
+      {displayedReviews.map((review) => (
         <li key={review.id} className="reviews__item">
           <div className="reviews__user user">
             <div className="reviews__avatar-wrapper user__avatar-wrapper">

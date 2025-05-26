@@ -1,9 +1,23 @@
-import { useState, ChangeEvent, FormEvent, Fragment } from 'react';
-import { COMMENT_RATINGS } from '../../utils/const';
+import { useState, ChangeEvent, Fragment } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { sendCommentAction } from '../../store/api-actions';
+import { addComment } from '../../store/actions';
+import { Review } from '../../types/review';
+import { COMMENT_RATINGS, CommentTextLenght } from '../../utils/const';
 
-function ReviewsForm(): JSX.Element {
-  const [rating, setRating] = useState<number | null>(null);
+type ReviewsFormProps = {
+  offerId: string;
+}
+
+function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
+  const [rating, setRating] = useState<number | null>();
   const [reviewText, setReviewText] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>();
+
+  const dispatch = useAppDispatch();
+
+  const isFormValid = rating !== null && reviewText.length >= CommentTextLenght.Min && reviewText.length <= CommentTextLenght.Max;
 
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setRating(Number(evt.target.value));
@@ -13,8 +27,37 @@ function ReviewsForm(): JSX.Element {
     setReviewText(evt.target.value);
   };
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
+
+    if (!rating || reviewText.length < CommentTextLenght.Min || reviewText.length > CommentTextLenght.Max) {
+      setErrorMessage('Please fill out the form correctly.');
+
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    dispatch(
+      sendCommentAction({
+        offerId,
+        rating,
+        comment: reviewText,
+      })
+    )
+      .unwrap()
+      .then((newComment: Review) => {
+        dispatch(addComment(newComment));
+        setRating(null);
+        setReviewText('');
+      })
+      .catch(() => {
+        setErrorMessage('Failed to submit comment. Please try again.');
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -35,6 +78,7 @@ function ReviewsForm(): JSX.Element {
               id={`${commentRating.value}-stars`}
               type="radio"
               checked={commentRating.value === rating}
+              disabled={isSubmitting}
               onChange={handleRatingChange}
             />
             <label
@@ -55,14 +99,26 @@ function ReviewsForm(): JSX.Element {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={reviewText}
-        maxLength={300}
+        maxLength={CommentTextLenght.Max}
+        disabled={isSubmitting}
         onChange={handleReviewChange}
       />
+      {errorMessage && (
+        <div className="error-message" style={{ color: 'red', marginBottom: '12px' }}>
+          {errorMessage}
+        </div>
+      )}
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{CommentTextLenght.Min} characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!rating || reviewText.length < 50}>Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={!isFormValid || isSubmitting}
+        >
+          Submit
+        </button>
       </div>
     </form>
   );

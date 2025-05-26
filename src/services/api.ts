@@ -1,8 +1,8 @@
 import axios, {AxiosInstance, AxiosResponse, AxiosError} from 'axios';
-import {StatusCodes} from 'http-status-codes';
-import {toast} from 'react-toastify';
+import { StatusCodes } from 'http-status-codes';
+import { toast } from 'react-toastify';
 
-import {getToken} from './token';
+import { getToken } from './token';
 import { BACKEND_URL, REQUEST_TIMEOUT } from '../utils/const';
 
 type DetailMessageType = {

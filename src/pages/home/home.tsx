@@ -2,27 +2,38 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import Header from '../../components/header/header';
+import Loader from '../../components/loader/loader';
 import CitiesList from '../../components/cities-list/cities-list';
+import PlacesSorting from '../../components/places-sorting/places-sorting';
 import PlacesList from '../../components/places-list/places-list';
 import Map from '../../components/map/map';
-import PlacesSorting from '../../components/places-sorting/places-sorting';
-import Loader from '../../components/loader/loader';
 
 import { useAppSelector } from '../../hooks';
 import { sortOffers } from '../../utils/tools';
-import { SortType } from '../../utils/const';
+import { AuthorizationStatus, SortType } from '../../utils/const';
 
 function Home(): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<string | undefined>(undefined);
   const [currentSortType, setCurrentSortType] = useState<SortType>(SortType.Popular);
 
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
-
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
   const currentCity = useAppSelector((state) => state.city);
   const allOffers = useAppSelector((state) => state.offers);
-  const filteredOffers = allOffers.filter((offer) => offer.city.name === currentCity.name);
 
+  const filteredOffers = allOffers.filter((offer) => offer.city.name === currentCity.name);
   const sortedOffers = sortOffers(filteredOffers, currentSortType);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
+    return (
+      <div className="page page--gray page--main">
+        <Helmet>
+          <title>Home | 6 cities - Official Website</title>
+        </Helmet>
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -30,8 +41,7 @@ function Home(): JSX.Element {
         <title>Home | 6 cities - Official Website</title>
       </Helmet>
       <Header />
-      {isOffersDataLoading && <Loader />}
-      <main className={`page__main page__main--index ${filteredOffers.length === 0 ? 'page__main--index-empty' : ''}`}>
+      <main className={`page__main page__main--index ${filteredOffers.length === 0 && 'page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <CitiesList />
