@@ -10,14 +10,9 @@ import HistoryRouter from '../history-route/history-route';
 import PrivateRoute from '../private-route/private-route';
 
 import browserHistory from '../../browser-history';
-import { Offers } from '../../types/offer';
 import { AppRoute } from '../../utils/const';
 
-type AppProps = {
-  favoriteOffers: Offers;
-}
-
-function App({favoriteOffers}: AppProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
@@ -38,7 +33,7 @@ function App({favoriteOffers}: AppProps): JSX.Element {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute>
-                <Favorites favoriteOffers={favoriteOffers}/>
+                <Favorites />
               </PrivateRoute>
             }
           />

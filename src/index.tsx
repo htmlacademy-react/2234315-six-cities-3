@@ -7,7 +7,6 @@ import App from './components/app/app';
 
 import { store } from './store';
 import { fetchOffersAction, checkAuthAction } from './store/api-actions';
-import { favoriteOffers } from './mocks/offers';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -22,9 +21,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer />
-      <App
-        favoriteOffers={favoriteOffers}
-      />
+      <App />
     </Provider>
   </React.StrictMode>
 );

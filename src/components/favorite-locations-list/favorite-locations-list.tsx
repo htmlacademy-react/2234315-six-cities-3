@@ -1,4 +1,5 @@
-import FavoriteLocation from '../favorite-location/favorite-location';
+import { Link } from 'react-router-dom';
+import PlacesList from '../places-list/places-list';
 import { Offers } from '../../types/offer';
 
 type FavoriteLocationsListProps = {
@@ -21,11 +22,21 @@ function FavoriteLocationsList({offers}: FavoriteLocationsListProps): JSX.Elemen
   return (
     <>
       {Object.entries(groupedOffers).map(([city, cityOffers]) => (
-        <FavoriteLocation
-          key={city}
-          city={city}
-          favoritePlaces={cityOffers}
-        />
+        <li key={city} className="favorites__locations-items">
+          <div className="favorites__locations locations locations--current">
+            <div className="locations__item">
+              <Link className="locations__item-link" to="#">
+                <span>{city}</span>
+              </Link>
+            </div>
+          </div>
+          <div className="favorites__places">
+            <PlacesList
+              cardType="favorites"
+              places={cityOffers}
+            />
+          </div>
+        </li>
       ))}
     </>
   );

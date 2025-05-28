@@ -1,11 +1,12 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AppRoute, AuthorizationStatus } from '../../utils/const';
 import { logoutAction } from '../../store/api-actions';
+import { AppRoute, AuthorizationStatus } from '../../utils/const';
 
 function Header(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const userData = useAppSelector((state) => state.userData);
+  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -38,9 +39,12 @@ function Header(): JSX.Element {
                   <>
                     <li className="header__nav-item user">
                       <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
-                        <div className="header__avatar-wrapper user__avatar-wrapper" />
+                        <div
+                          className="header__avatar-wrapper user__avatar-wrapper"
+                          style={{ backgroundImage: userData?.avatarUrl ? `url(${userData.avatarUrl})` : 'url(/img/avatar.svg)' }}
+                        />
                         <span className="header__user-name user__name">{userData && userData.email}</span>
-                        <span className="header__favorite-count">3</span>
+                        <span className="header__favorite-count">{favoriteOffers.length}</span>
                       </Link>
                     </li>
                     <li className="header__nav-item">

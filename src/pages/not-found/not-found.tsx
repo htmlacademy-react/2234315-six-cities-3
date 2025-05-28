@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/header/header';
-import './not-found.css';
 import { AppRoute } from '../../utils/const';
+
+import './not-found.css';
 
 function NotFound(): JSX.Element {
   return (

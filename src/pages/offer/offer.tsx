@@ -15,8 +15,8 @@ import NotFound from '../not-found/not-found';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchCurrentOfferAction, fetchCommentsAction, fetchNearbyOffersAction } from '../../store/api-actions';
-import { resetCurrentOfferState } from '../../store/actions';
-import { AuthorizationStatus, OFFER_NEARBY_MAX_LENGHT } from '../../utils/const';
+import { resetCurrentOfferState, setActiveCity } from '../../store/actions';
+import { AuthorizationStatus, CITIES, OFFER_NEARBY_MAX_LENGHT } from '../../utils/const';
 
 function Offer(): JSX.Element {
   const { id } = useParams<{ id: string }>();
@@ -34,8 +34,18 @@ function Offer(): JSX.Element {
   const isCommentsLoading = useAppSelector((state) => state.isCommentsLoading);
   const isNearbyOffersLoading = useAppSelector((state) => state.isNearbyOffersLoading);
 
+  const activeCity = CITIES.find((city) => city.name === offer?.city.name);
+
   useEffect(() => {
-    if (id) {
+    if (activeCity) {
+      dispatch(setActiveCity(activeCity));
+    }
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if (isMounted && id) {
       dispatch(fetchCurrentOfferAction(id));
       dispatch(fetchCommentsAction(id));
       dispatch(fetchNearbyOffersAction(id));
@@ -43,6 +53,7 @@ function Offer(): JSX.Element {
 
     return () => {
       dispatch(resetCurrentOfferState());
+      isMounted = false;
     };
   }, [id, dispatch]);
 

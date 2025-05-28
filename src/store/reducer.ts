@@ -15,6 +15,9 @@ import {
   addComment,
   requireAuthorization,
   setUserData,
+  setFavoriteOffers,
+  changeFavoriteOffers,
+  updateOffersFavoriteFlag,
 } from './actions';
 
 import { City, DetailedOffer, Offers } from '../types/offer';
@@ -35,6 +38,7 @@ type InitalState = {
   isCommentsLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   userData: UserData | null;
+  favoriteOffers: Offers;
 }
 
 const initialState: InitalState = {
@@ -50,6 +54,7 @@ const initialState: InitalState = {
   isCommentsLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: null,
+  favoriteOffers: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -82,6 +87,38 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setNearbyOffersLoadingStatus, (state, action) => {
       state.isNearbyOffersLoading = action.payload;
+    })
+    .addCase(setFavoriteOffers, (state, action) => {
+      state.favoriteOffers = action.payload;
+    })
+    .addCase(changeFavoriteOffers, (state, action) => {
+      if (action.payload.isFavorite) {
+        state.favoriteOffers.push(action.payload);
+      } else {
+        state.favoriteOffers = state.favoriteOffers.filter((offer) => offer.id !== action.payload.id);
+      }
+    })
+    .addCase(updateOffersFavoriteFlag, (state, action) => {
+      const offerId = action.payload.id;
+      const isFavorited = state.favoriteOffers.some((offer) => offer.id === offerId);
+
+      state.offers.forEach((item) => {
+        if (item.id === offerId) {
+          item.isFavorite = isFavorited;
+        }
+      });
+
+      if (state.nearbyOffers.length !== 0) {
+        state.nearbyOffers.forEach((item) => {
+          if (item.id === offerId) {
+            item.isFavorite = isFavorited;
+          }
+        });
+      }
+
+      if (state.currentOffer && state.currentOffer.id === offerId) {
+        state.currentOffer.isFavorite = action.payload.isFavorite;
+      }
     })
     .addCase(setComments, (state, action) => {
       state.comments = action.payload;

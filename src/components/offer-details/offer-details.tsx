@@ -1,5 +1,8 @@
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { redirectToRoute } from '../../store/actions';
+import { toggleFavoriteOfferAction } from '../../store/api-actions';
 import { DetailedOffer } from '../../types/offer';
-import { OFFER_MAX_RATING } from '../../utils/const';
+import { AppRoute, AuthorizationStatus, OFFER_MAX_RATING } from '../../utils/const';
 import { capitalizeFirstLetter, getRatingPercent } from '../../utils/tools';
 
 type OfferDetailsProps = {
@@ -7,6 +10,17 @@ type OfferDetailsProps = {
 }
 
 function OfferDetails({offer}: OfferDetailsProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
+
+  const handleBookmarkClick = (currentOffer: DetailedOffer) => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(toggleFavoriteOfferAction({id: currentOffer.id, isFavorite: !currentOffer.isFavorite}));
+    } else {
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
+  };
+
   return (
     <>
       {offer.isPremium &&
@@ -18,6 +32,7 @@ function OfferDetails({offer}: OfferDetailsProps): JSX.Element {
         <button
           className={`offer__bookmark-button ${offer.isFavorite && 'offer__bookmark-button--active'} button`}
           type="button"
+          onClick={() => handleBookmarkClick(offer)}
         >
           <svg className="offer__bookmark-icon" width="31" height="33">
             <use xlinkHref="#icon-bookmark"></use>

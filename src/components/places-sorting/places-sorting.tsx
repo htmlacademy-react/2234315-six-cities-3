@@ -11,7 +11,11 @@ function PlacesSorting({activeSortType, onChangeSortType}: PlacesSortingProps): 
 
   return (
     <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption">Sort by</span>
+      <span
+        className="places__sorting-caption"
+        style={{ marginRight: 10 }}
+      >Sort by
+      </span>
       <span
         className="places__sorting-type"
         tabIndex={0}

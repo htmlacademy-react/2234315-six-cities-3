@@ -27,7 +27,8 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
-  NearbyOffers = '/nearby'
+  NearbyOffers = '/nearby',
+  FavoriteOffers = '/favorite'
 }
 
 export enum AuthorizationStatus {
@@ -41,6 +42,11 @@ export enum SortType {
   PriceLowToHigh = 'Price: low to high',
   PriceHighToLow = 'Price: high to low',
   TopRatedFirst = 'Top rated first'
+}
+
+export enum FavoritesChangeStatus {
+  Remove = 0,
+  Add = 1
 }
 
 export const CommentTextLenght = {

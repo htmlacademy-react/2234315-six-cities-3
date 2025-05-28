@@ -6,9 +6,12 @@ import Header from '../../components/header/header';
 
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { AppRoute, AUTH_PASSWORD_PATTERN } from '../../utils/const';
+import { AppRoute, AUTH_PASSWORD_PATTERN, CITIES } from '../../utils/const';
+import { setActiveCity } from '../../store/actions';
 
 function Login(): JSX.Element {
+  const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
+
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -24,6 +27,7 @@ function Login(): JSX.Element {
       }));
     }
   };
+
 
   return (
     <div className="page page--gray page--login">
@@ -76,8 +80,12 @@ function Login(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Main}>
-                <span>Amsterdam</span>
+              <Link
+                className="locations__item-link"
+                to={AppRoute.Main}
+                onClick={() => dispatch(setActiveCity(randomCity))}
+              >
+                <span>{randomCity.name}</span>
               </Link>
             </div>
           </section>
