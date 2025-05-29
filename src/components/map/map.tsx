@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, memo } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 
 import { useAppSelector } from '../../hooks';
@@ -7,6 +7,8 @@ import { Offers } from '../../types/offer';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../utils/const';
 
 import 'leaflet/dist/leaflet.css';
+import { getCity } from '../../store/app-aside-process/app-aside-process.selectors';
+import { getCurrentOffer } from '../../store/current-offer-process/current-offer-process.selectors';
 
 type MapProps = {
   points: Offers;
@@ -23,8 +25,8 @@ const currentCustomIcon = new Icon({
 });
 
 function Map({points, selectedPointId}: MapProps): JSX.Element {
-  const currentCity = useAppSelector((state) => state.city);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const currentCity = useAppSelector(getCity);
+  const currentOffer = useAppSelector(getCurrentOffer);
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, currentCity);
@@ -70,4 +72,4 @@ function Map({points, selectedPointId}: MapProps): JSX.Element {
   );
 }
 
-export default Map;
+export default memo(Map);

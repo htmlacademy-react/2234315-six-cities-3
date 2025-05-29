@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
-import { MouseEvent } from 'react';
+import { memo, MouseEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setActiveCity } from '../../store/actions';
 import { City } from '../../types/offer';
 import { CITIES } from '../../utils/const';
+import { setActiveCity } from '../../store/app-aside-process/app-aside-process.slice';
+import { getCity } from '../../store/app-aside-process/app-aside-process.selectors';
 
 function CitiesList(): JSX.Element {
-  const activeCity = useAppSelector((state) => state.city);
+  const activeCity = useAppSelector(getCity);
   const dispatch = useAppDispatch();
 
   const handleCitySelect = (evt: MouseEvent<HTMLAnchorElement>, city: City) => {
@@ -36,4 +37,4 @@ function CitiesList(): JSX.Element {
   );
 }
 
-export default CitiesList;
+export default memo(CitiesList);

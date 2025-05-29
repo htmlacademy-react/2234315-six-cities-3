@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
+import { memo } from 'react';
 import { Offer } from '../../types/offer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { redirectToRoute } from '../../store/actions';
 import { toggleFavoriteOfferAction } from '../../store/api-actions';
 import { capitalizeFirstLetter, getRatingPercent } from '../../utils/tools';
 import { AppRoute, AuthorizationStatus, OFFER_MAX_RATING } from '../../utils/const';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 type PlaceCardProps = {
   cardInfo: Offer;
@@ -14,7 +16,7 @@ type PlaceCardProps = {
 }
 
 function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
   const handleBookmarkClick = (offer: Offer) => {
@@ -78,4 +80,4 @@ function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardPr
   );
 }
 
-export default PlaceCard;
+export default memo(PlaceCard);

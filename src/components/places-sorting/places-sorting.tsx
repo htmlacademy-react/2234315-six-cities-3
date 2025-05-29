@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { SortType } from '../../utils/const';
 
 type PlacesSortingProps = {
@@ -8,6 +8,11 @@ type PlacesSortingProps = {
 
 function PlacesSorting({activeSortType, onChangeSortType}: PlacesSortingProps): JSX.Element {
   const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const handleChangeSortType = (sortType: SortType) => {
+    onChangeSortType(sortType);
+    setIsFormOpen(false);
+  };
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -32,10 +37,7 @@ function PlacesSorting({activeSortType, onChangeSortType}: PlacesSortingProps): 
             key={type}
             className={`places__option ${type === activeSortType ? 'places__option--active' : ''}`}
             tabIndex={0}
-            onClick={() => {
-              onChangeSortType(type);
-              setIsFormOpen(false);
-            }}
+            onClick={() => handleChangeSortType(type)}
           >
             {type}
           </li>
@@ -45,4 +47,4 @@ function PlacesSorting({activeSortType, onChangeSortType}: PlacesSortingProps): 
   );
 }
 
-export default PlacesSorting;
+export default memo(PlacesSorting);

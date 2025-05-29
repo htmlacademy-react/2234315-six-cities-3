@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Reviews } from '../../types/review';
 import { getRatingPercent, formatDate, sortReviewByNewest } from '../../utils/tools';
 import { COMMENT_MAX_RATING, OFFER_COMMENTS_MAX_LENGHT } from '../../utils/const';
@@ -43,4 +44,4 @@ function ReviewsList({reviews}: ReviewsListProps): JSX.Element {
   );
 }
 
-export default ReviewsList;
+export default memo(ReviewsList);

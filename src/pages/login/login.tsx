@@ -1,21 +1,20 @@
 import { useRef, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 
-import Header from '../../components/header/header';
+import Layout from '../../components/layout/layout';
 
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AppRoute, AUTH_PASSWORD_PATTERN, CITIES } from '../../utils/const';
-import { setActiveCity } from '../../store/actions';
+import { setActiveCity } from '../../store/app-aside-process/app-aside-process.slice';
 
 function Login(): JSX.Element {
-  const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
-
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
+
+  const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -28,13 +27,11 @@ function Login(): JSX.Element {
     }
   };
 
-
   return (
-    <div className="page page--gray page--login">
-      <Helmet>
-        <title>Authorization | 6 cities - Official Website</title>
-      </Helmet>
-      <Header />
+    <Layout
+      pageTitle="Authorization | 6 cities - Official Website"
+      className="page--gray page--login"
+    >
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
@@ -91,7 +88,7 @@ function Login(): JSX.Element {
           </section>
         </div>
       </main>
-    </div>
+    </Layout>
   );
 }
 

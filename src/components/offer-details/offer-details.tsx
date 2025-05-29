@@ -1,16 +1,18 @@
+import { memo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { redirectToRoute } from '../../store/actions';
 import { toggleFavoriteOfferAction } from '../../store/api-actions';
 import { DetailedOffer } from '../../types/offer';
 import { AppRoute, AuthorizationStatus, OFFER_MAX_RATING } from '../../utils/const';
 import { capitalizeFirstLetter, getRatingPercent } from '../../utils/tools';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 type OfferDetailsProps = {
   offer: DetailedOffer;
 }
 
 function OfferDetails({offer}: OfferDetailsProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
   const handleBookmarkClick = (currentOffer: DetailedOffer) => {
@@ -76,4 +78,4 @@ function OfferDetails({offer}: OfferDetailsProps): JSX.Element {
   );
 }
 
-export default OfferDetails;
+export default memo(OfferDetails);

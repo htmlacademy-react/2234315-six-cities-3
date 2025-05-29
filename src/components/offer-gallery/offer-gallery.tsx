@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { DetailedOffer } from '../../types/offer';
 import { OFFER_GALLERY_MAX_LENGHT } from '../../utils/const';
 
@@ -21,4 +22,4 @@ function OfferGallery({offer}: OfferGalleryProps): JSX.Element {
   );
 }
 
-export default OfferGallery;
+export default memo(OfferGallery);

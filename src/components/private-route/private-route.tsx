@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../utils/const';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 type PrivateRouteProps = {
   isLoginPage?: boolean;
@@ -9,7 +10,7 @@ type PrivateRouteProps = {
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   const {isLoginPage, children} = props;
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (isLoginPage) {
     return (

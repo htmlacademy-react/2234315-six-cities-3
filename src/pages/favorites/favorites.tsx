@@ -1,21 +1,19 @@
-import { Helmet } from 'react-helmet-async';
-
-import Footer from '../../components/footer/footer';
-import Header from '../../components/header/header';
+import Layout from '../../components/layout/layout';
 import FavoriteLocationsList from '../../components/favorite-locations-list/favorite-locations-list';
-
-import { useAppSelector } from '../../hooks';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 
+import { useAppSelector } from '../../hooks';
+import { getFavoriteOffers } from '../../store/app-aside-process/app-aside-process.selectors';
+
 function Favorites(): JSX.Element {
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
   return (
-    <div className={`page ${favoriteOffers.length === 0 && 'page--favorites-empty'}`}>
-      <Helmet>
-        <title>Favorites | 6 cities - Official Website</title>
-      </Helmet>
-      <Header />
+    <Layout
+      pageTitle="Favorites | 6 cities - Official Website"
+      className={favoriteOffers.length === 0 ? 'page--favorites-empty' : ''}
+      withFooter
+    >
       <main className={`page__main page__main--favorites ${favoriteOffers.length === 0 && 'page__main--favorites-empty'}`}>
         <div className="page__favorites-container container">
           {favoriteOffers.length === 0 ? (
@@ -30,8 +28,7 @@ function Favorites(): JSX.Element {
           )}
         </div>
       </main>
-      <Footer />
-    </div>
+    </Layout>
   );
 }
 

@@ -2,11 +2,14 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../../utils/const';
+import { memo } from 'react';
+import { getAuthorizationStatus, getUserData } from '../../store/user-process/user-process.selectors';
+import { getFavoriteOffers } from '../../store/app-aside-process/app-aside-process.selectors';
 
 function Header(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const userData = useAppSelector((state) => state.userData);
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userData = useAppSelector(getUserData);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -76,4 +79,4 @@ function Header(): JSX.Element {
   );
 }
 
-export default Header;
+export default memo(Header);

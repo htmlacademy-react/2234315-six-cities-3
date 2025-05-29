@@ -112,3 +112,9 @@ export const CITIES = [
     }
   }
 ];
+
+export enum NameSpace {
+  AppAside = 'APP_ASIDE',
+  CurrentOffer = 'CURRENT_OFFER',
+  User = 'USER',
+}

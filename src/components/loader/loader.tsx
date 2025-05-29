@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import './loader.css';
 
 function Loader(): JSX.Element {
@@ -8,4 +9,4 @@ function Loader(): JSX.Element {
   );
 }
 
-export default Loader;
+export default memo(Loader);
