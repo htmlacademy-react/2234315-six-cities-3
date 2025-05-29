@@ -15,8 +15,10 @@ function OfferDetails({offer}: OfferDetailsProps): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
+  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+
   const handleBookmarkClick = (currentOffer: DetailedOffer) => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
+    if (isAuthorized) {
       dispatch(toggleFavoriteOfferAction({id: currentOffer.id, isFavorite: !currentOffer.isFavorite}));
     } else {
       dispatch(redirectToRoute(AppRoute.Login));
@@ -39,7 +41,7 @@ function OfferDetails({offer}: OfferDetailsProps): JSX.Element {
           <svg className="offer__bookmark-icon" width="31" height="33">
             <use xlinkHref="#icon-bookmark"></use>
           </svg>
-          <span className="visually-hidden">${offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
+          <span className="visually-hidden">${isAuthorized && offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
         </button>
       </div>
       <div className="offer__rating rating">

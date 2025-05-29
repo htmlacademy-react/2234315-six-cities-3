@@ -19,8 +19,10 @@ function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardPr
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
+  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+
   const handleBookmarkClick = (offer: Offer) => {
-    if (authorizationStatus === AuthorizationStatus.Auth) {
+    if (isAuthorized) {
       dispatch(toggleFavoriteOfferAction({id: offer.id, isFavorite: !offer.isFavorite}));
     } else {
       dispatch(redirectToRoute(AppRoute.Login));
@@ -55,7 +57,7 @@ function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardPr
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button ${cardInfo.isFavorite && 'place-card__bookmark-button--active'} button`}
+            className={`place-card__bookmark-button ${isAuthorized && cardInfo.isFavorite && 'place-card__bookmark-button--active'} button`}
             type="button"
             onClick={() => handleBookmarkClick(cardInfo)}
           >
