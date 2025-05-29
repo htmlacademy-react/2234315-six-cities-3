@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchCommentsAction, fetchCurrentOfferAction, fetchNearbyOffersAction, sendCommentAction, toggleFavoriteOfferAction } from '../api-actions';
+import {
+  fetchCurrentOfferAction,
+  fetchCommentsAction,
+  fetchNearbyOffersAction,
+  sendCommentAction,
+  toggleFavoriteOfferAction
+} from '../api-actions';
 import { CurrentOfferProcess } from '../../types/state';
 import { NameSpace, OFFER_NEARBY_MAX_LENGHT } from '../../utils/const';
 

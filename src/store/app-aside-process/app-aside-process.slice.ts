@@ -1,14 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { checkAuthAction, fetchFavoriteOffersAction, fetchOffersAction, logoutAction, toggleFavoriteOfferAction } from '../api-actions';
+import {
+  checkAuthAction,
+  fetchFavoriteOffersAction,
+  fetchOffersAction,
+  logoutAction,
+  toggleFavoriteOfferAction
+} from '../api-actions';
 import { AppAsideProcess } from '../../types/state';
-import { CITIES, NameSpace } from '../../utils/const';
 import { City } from '../../types/offer';
+import { CITIES, NameSpace } from '../../utils/const';
 
 const initialState: AppAsideProcess = {
   city: CITIES[0],
   offers: [],
-  isOffersLoading: false,
   favoriteOffers: [],
+  isOffersLoading: false,
 };
 
 export const appAsideProcess = createSlice({

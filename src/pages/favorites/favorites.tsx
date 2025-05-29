@@ -4,13 +4,14 @@ import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 
 import { useAppSelector } from '../../hooks';
 import { getFavoriteOffers } from '../../store/app-aside-process/app-aside-process.selectors';
+import { PageTitle } from '../../utils/const';
 
 function Favorites(): JSX.Element {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
 
   return (
     <Layout
-      pageTitle="Favorites | 6 cities - Official Website"
+      pageTitle={`${PageTitle.Favorites} | ${PageTitle.Main}`}
       className={favoriteOffers.length === 0 ? 'page--favorites-empty' : ''}
       withFooter
     >

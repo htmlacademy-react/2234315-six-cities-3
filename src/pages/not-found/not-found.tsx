@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import Layout from '../../components/layout/layout';
-import { AppRoute } from '../../utils/const';
+import { AppRoute, PageTitle } from '../../utils/const';
 
 import './not-found.css';
 
 function NotFound(): JSX.Element {
   return (
     <Layout
-      pageTitle="404 Not Found | 6 cities - Official Website"
+      pageTitle={`${PageTitle.NotFound} | ${PageTitle.Main}`}
       className="page--gray"
     >
       <main className="page__main">

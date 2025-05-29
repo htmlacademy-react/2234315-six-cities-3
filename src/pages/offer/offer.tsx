@@ -13,12 +13,18 @@ import NotFound from '../not-found/not-found';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchCurrentOfferAction, fetchCommentsAction, fetchNearbyOffersAction } from '../../store/api-actions';
-import { AuthorizationStatus, CITIES } from '../../utils/const';
+import { AuthorizationStatus, CITIES, PageTitle } from '../../utils/const';
 import Layout from '../../components/layout/layout';
 import { resetCurrentOfferState } from '../../store/current-offer-process/current-offer-process.slice';
 import { setActiveCity } from '../../store/app-aside-process/app-aside-process.slice';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
-import { getComments, getCurrentOffer, getCurrentOfferLoadingStatus, getCurrentOfferNotFoundStatus, getNearbyOffers } from '../../store/current-offer-process/current-offer-process.selectors';
+import {
+  getComments,
+  getCurrentOffer,
+  getCurrentOfferLoadingStatus,
+  getCurrentOfferNotFoundStatus,
+  getNearbyOffers
+} from '../../store/current-offer-process/current-offer-process.selectors';
 
 function Offer(): JSX.Element {
   const { id } = useParams<{ id: string }>();
@@ -57,7 +63,7 @@ function Offer(): JSX.Element {
   if (isCurrentOfferLoading || !offer) {
     return (
       <Layout
-        pageTitle="Offer | 6 cities - Official Website"
+        pageTitle={`${PageTitle.Offer} | ${PageTitle.Main}`}
       >
         <Loader />
       </Layout>
@@ -72,7 +78,7 @@ function Offer(): JSX.Element {
 
   return (
     <Layout
-      pageTitle={`Offer - ${offer.title} | 6 cities - Official Website`}
+      pageTitle={`${PageTitle.Offer} - ${offer.title} | ${PageTitle.Main}`}
     >
       <main className="page__main page__main--offer">
         <section className="offer">

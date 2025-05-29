@@ -10,7 +10,7 @@ import Map from '../../components/map/map';
 
 import { useAppSelector } from '../../hooks';
 import { sortOffers } from '../../utils/tools';
-import { AuthorizationStatus, SortType } from '../../utils/const';
+import { AuthorizationStatus, PageTitle, SortType } from '../../utils/const';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { getCity, getOffers, getOffersLoadingStatus } from '../../store/app-aside-process/app-aside-process.selectors';
 
@@ -37,7 +37,7 @@ function Home(): JSX.Element {
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return (
       <Layout
-        pageTitle="Home | 6 cities - Official Website"
+        pageTitle={PageTitle.Main}
         className="page--gray page--main"
       >
         <Loader />
@@ -47,7 +47,7 @@ function Home(): JSX.Element {
 
   return (
     <Layout
-      pageTitle="Home | 6 cities - Official Website"
+      pageTitle={PageTitle.Main}
       className="page--gray page--main"
     >
       <main className={`page__main page__main--index ${filteredOffers.length === 0 && 'page__main--index-empty'}`}>

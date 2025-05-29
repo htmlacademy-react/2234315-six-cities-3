@@ -5,7 +5,7 @@ import Layout from '../../components/layout/layout';
 
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { AppRoute, AUTH_PASSWORD_PATTERN, CITIES } from '../../utils/const';
+import { AppRoute, AUTH_PASSWORD_PATTERN, CITIES, PageTitle } from '../../utils/const';
 import { setActiveCity } from '../../store/app-aside-process/app-aside-process.slice';
 
 function Login(): JSX.Element {
@@ -29,7 +29,7 @@ function Login(): JSX.Element {
 
   return (
     <Layout
-      pageTitle="Authorization | 6 cities - Official Website"
+      pageTitle={`${PageTitle.Login} | ${PageTitle.Main}`}
       className="page--gray page--login"
     >
       <main className="page__main page__main--login">

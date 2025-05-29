@@ -118,3 +118,11 @@ export enum NameSpace {
   CurrentOffer = 'CURRENT_OFFER',
   User = 'USER',
 }
+
+export enum PageTitle {
+  Main = '6 cities - Official Website',
+  Login = 'Authorization',
+  Favorites = 'Favorites',
+  Offer = 'Offer',
+  NotFound = '404 Not Found'
+}

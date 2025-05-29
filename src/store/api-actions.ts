@@ -2,11 +2,11 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { redirectToRoute } from './actions';
 import { saveToken, dropToken } from '../services/token';
-import { AppDispatch, State } from '../types/state.js';
+import { AppDispatch, State } from '../types/state';
 import { DetailedOffer, Offer, Offers } from '../types/offer';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
-import { Review, Reviews } from '../types/review.js';
+import { Review, Reviews } from '../types/review';
 import { APIRoute, AppRoute, FavoritesChangeStatus } from '../utils/const';
 
 export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
