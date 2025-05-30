@@ -1,16 +1,15 @@
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import Header from '../../components/header/header';
+import Layout from '../../components/layout/layout';
+import { AppRoute, PageTitle } from '../../utils/const';
+
 import './not-found.css';
-import { AppRoute } from '../../utils/const';
 
 function NotFound(): JSX.Element {
   return (
-    <div className="page page--gray">
-      <Helmet>
-        <title>404 Not Found | 6 cities - Official Website</title>
-      </Helmet>
-      <Header />
+    <Layout
+      pageTitle={`${PageTitle.NotFound} | ${PageTitle.Main}`}
+      className="page--gray"
+    >
       <main className="page__main">
         <section className="not-found">
           <div className="not-found__container container">
@@ -23,7 +22,7 @@ function NotFound(): JSX.Element {
           </div>
         </section>
       </main>
-    </div>
+    </Layout>
   );
 }
 

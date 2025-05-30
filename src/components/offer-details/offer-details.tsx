@@ -1,12 +1,30 @@
+import { memo } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { redirectToRoute } from '../../store/actions';
+import { toggleFavoriteOfferAction } from '../../store/api-actions';
 import { DetailedOffer } from '../../types/offer';
-import { OFFER_MAX_RATING } from '../../utils/const';
+import { AppRoute, AuthorizationStatus, OFFER_MAX_RATING } from '../../utils/const';
 import { capitalizeFirstLetter, getRatingPercent } from '../../utils/tools';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 type OfferDetailsProps = {
   offer: DetailedOffer;
 }
 
 function OfferDetails({offer}: OfferDetailsProps): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const dispatch = useAppDispatch();
+
+  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+
+  const handleBookmarkClick = (currentOffer: DetailedOffer) => {
+    if (isAuthorized) {
+      dispatch(toggleFavoriteOfferAction({id: currentOffer.id, isFavorite: !currentOffer.isFavorite}));
+    } else {
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
+  };
+
   return (
     <>
       {offer.isPremium &&
@@ -18,11 +36,12 @@ function OfferDetails({offer}: OfferDetailsProps): JSX.Element {
         <button
           className={`offer__bookmark-button ${offer.isFavorite && 'offer__bookmark-button--active'} button`}
           type="button"
+          onClick={() => handleBookmarkClick(offer)}
         >
           <svg className="offer__bookmark-icon" width="31" height="33">
             <use xlinkHref="#icon-bookmark"></use>
           </svg>
-          <span className="visually-hidden">${offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
+          <span className="visually-hidden">${isAuthorized && offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
         </button>
       </div>
       <div className="offer__rating rating">
@@ -61,4 +80,4 @@ function OfferDetails({offer}: OfferDetailsProps): JSX.Element {
   );
 }
 
-export default OfferDetails;
+export default memo(OfferDetails);

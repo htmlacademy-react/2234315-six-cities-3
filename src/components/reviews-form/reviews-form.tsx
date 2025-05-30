@@ -1,8 +1,6 @@
-import { useState, ChangeEvent, Fragment } from 'react';
+import { useState, ChangeEvent, Fragment, memo } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { sendCommentAction } from '../../store/api-actions';
-import { addComment } from '../../store/actions';
-import { Review } from '../../types/review';
 import { COMMENT_RATINGS, CommentTextLenght } from '../../utils/const';
 
 type ReviewsFormProps = {
@@ -47,8 +45,7 @@ function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
       })
     )
       .unwrap()
-      .then((newComment: Review) => {
-        dispatch(addComment(newComment));
+      .then(() => {
         setRating(null);
         setReviewText('');
       })
@@ -124,4 +121,4 @@ function ReviewsForm({offerId}: ReviewsFormProps): JSX.Element {
   );
 }
 
-export default ReviewsForm;
+export default memo(ReviewsForm);

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { DetailedOffer } from '../../types/offer';
 
 type OfferHostProps = {
@@ -29,4 +30,4 @@ function OfferHost({offer}: OfferHostProps): JSX.Element {
   );
 }
 
-export default OfferHost;
+export default memo(OfferHost);

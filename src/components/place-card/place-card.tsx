@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
+import { memo } from 'react';
 import { Offer } from '../../types/offer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { redirectToRoute } from '../../store/actions';
+import { toggleFavoriteOfferAction } from '../../store/api-actions';
 import { capitalizeFirstLetter, getRatingPercent } from '../../utils/tools';
-import { AppRoute, OFFER_MAX_RATING } from '../../utils/const';
+import { AppRoute, AuthorizationStatus, OFFER_MAX_RATING } from '../../utils/const';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 type PlaceCardProps = {
   cardInfo: Offer;
@@ -11,9 +16,22 @@ type PlaceCardProps = {
 }
 
 function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardProps): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const dispatch = useAppDispatch();
+
+  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+
+  const handleBookmarkClick = (offer: Offer) => {
+    if (isAuthorized) {
+      dispatch(toggleFavoriteOfferAction({id: offer.id, isFavorite: !offer.isFavorite}));
+    } else {
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
+  };
+
   return (
     <article
-      className={`${cardType ? `${cardType}__card` : ''} place-card`}
+      className={`${cardType && `${cardType}__card`} place-card`}
       onMouseEnter={() => onMouseEnter?.(cardInfo.id)}
       onMouseLeave={() => onMouseLeave?.()}
     >
@@ -21,7 +39,7 @@ function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardPr
       <div className="place-card__mark">
         <span>Premium</span>
       </div>}
-      <div className={`${cardType ? `${cardType}__image-wrapper` : ''} place-card__image-wrapper`}>
+      <div className={`${cardType && `${cardType}__image-wrapper`} place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/${cardInfo.id}`}>
           <img
             className="place-card__image"
@@ -39,8 +57,9 @@ function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardPr
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button ${cardInfo.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
+            className={`place-card__bookmark-button ${isAuthorized && cardInfo.isFavorite && 'place-card__bookmark-button--active'} button`}
             type="button"
+            onClick={() => handleBookmarkClick(cardInfo)}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -63,4 +82,4 @@ function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardPr
   );
 }
 
-export default PlaceCard;
+export default memo(PlaceCard);

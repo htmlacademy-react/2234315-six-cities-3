@@ -1,3 +1,4 @@
+import { memo, useCallback } from 'react';
 import PlaceCard from '../../components/place-card/place-card';
 import { Offers } from '../../types/offer';
 
@@ -8,6 +9,10 @@ type PlacesListProps = {
 }
 
 function PlacesList({cardType, places, onCardHover}: PlacesListProps): JSX.Element {
+  const handleCardHover = useCallback((id?: string) => {
+    onCardHover?.(id);
+  }, [onCardHover]);
+
   return (
     <>
       {places.map((place) => (
@@ -15,12 +20,12 @@ function PlacesList({cardType, places, onCardHover}: PlacesListProps): JSX.Eleme
           key={place.id}
           cardInfo={place}
           cardType={cardType}
-          onMouseEnter={() => onCardHover?.(place.id)}
-          onMouseLeave={() => onCardHover?.()}
+          onMouseEnter={() => handleCardHover(place.id)}
+          onMouseLeave={() => handleCardHover()}
         />
       ))}
     </>
   );
 }
 
-export default PlacesList;
+export default memo(PlacesList);

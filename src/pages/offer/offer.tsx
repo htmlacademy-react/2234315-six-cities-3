@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
-import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import OfferDetails from '../../components/offer-details/offer-details';
@@ -15,24 +13,40 @@ import NotFound from '../not-found/not-found';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchCurrentOfferAction, fetchCommentsAction, fetchNearbyOffersAction } from '../../store/api-actions';
-import { resetCurrentOfferState } from '../../store/actions';
-import { AuthorizationStatus, OFFER_NEARBY_MAX_LENGHT } from '../../utils/const';
+import { AuthorizationStatus, CITIES, PageTitle } from '../../utils/const';
+import Layout from '../../components/layout/layout';
+import { resetCurrentOfferState } from '../../store/current-offer-process/current-offer-process.slice';
+import { setActiveCity } from '../../store/app-aside-process/app-aside-process.slice';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import {
+  getComments,
+  getCurrentOffer,
+  getCurrentOfferLoadingStatus,
+  getCurrentOfferNotFoundStatus,
+  getNearbyOffers
+} from '../../store/current-offer-process/current-offer-process.selectors';
 
 function Offer(): JSX.Element {
   const { id } = useParams<{ id: string }>();
 
   const dispatch = useAppDispatch();
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  const offer = useAppSelector((state) => state.currentOffer);
-  const comments = useAppSelector((state) => state.comments);
-  const nearbyOffers = useAppSelector((state) => state.nearbyOffers).slice(0, OFFER_NEARBY_MAX_LENGHT);
+  const offer = useAppSelector(getCurrentOffer);
+  const comments = useAppSelector(getComments);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
 
-  const isOfferNotFound = useAppSelector((state) => state.isCurrentOfferNotFound);
-  const isCurrentOfferLoading = useAppSelector((state) => state.isCurrentOfferLoading);
-  const isCommentsLoading = useAppSelector((state) => state.isCommentsLoading);
-  const isNearbyOffersLoading = useAppSelector((state) => state.isNearbyOffersLoading);
+  const isOfferNotFound = useAppSelector(getCurrentOfferNotFoundStatus);
+  const isCurrentOfferLoading = useAppSelector(getCurrentOfferLoadingStatus);
+
+  const activeCity = CITIES.find((city) => city.name === offer?.city.name);
+
+  useEffect(() => {
+    if (activeCity) {
+      dispatch(setActiveCity(activeCity));
+    }
+  });
 
   useEffect(() => {
     if (id) {
@@ -46,14 +60,13 @@ function Offer(): JSX.Element {
     };
   }, [id, dispatch]);
 
-  if (isCurrentOfferLoading || isCommentsLoading || isNearbyOffersLoading || !offer) {
+  if (isCurrentOfferLoading || !offer) {
     return (
-      <div className="page">
-        <Helmet>
-          <title>Offer | 6 cities - Official Website</title>
-        </Helmet>
+      <Layout
+        pageTitle={`${PageTitle.Offer} | ${PageTitle.Main}`}
+      >
         <Loader />
-      </div>
+      </Layout>
     );
   }
 
@@ -64,11 +77,9 @@ function Offer(): JSX.Element {
   }
 
   return (
-    <div className="page">
-      <Helmet>
-        <title>Offer - {offer.title} | 6 cities - Official Website</title>
-      </Helmet>
-      <Header />
+    <Layout
+      pageTitle={`${PageTitle.Offer} - ${offer.title} | ${PageTitle.Main}`}
+    >
       <main className="page__main page__main--offer">
         <section className="offer">
           <OfferGallery offer={offer}/>
@@ -99,7 +110,7 @@ function Offer(): JSX.Element {
           </section>
         </div>
       </main>
-    </div>
+    </Layout>
   );
 }
 

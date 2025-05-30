@@ -2,7 +2,11 @@ import { Offers } from '../types/offer';
 import { Reviews } from '../types/review';
 import { SortType } from './const';
 
-export const getRatingPercent = (rating: number, maxRating: number): string => `${(Math.round(100 / maxRating * rating)).toString()}%`;
+export const getRatingPercent = (number: number, maxRating: number): string => {
+  const roundedNumber = Math.round(number);
+  const percent = Math.round((100 / maxRating) * roundedNumber);
+  return `${percent}%`;
+};
 
 export function formatDate(dateString: string, formatType: 'short' | 'full'): string {
   const date = new Date(dateString);
