@@ -3,7 +3,7 @@ import FavoriteLocationsList from '../../components/favorite-locations-list/favo
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 
 import { useAppSelector } from '../../hooks';
-import { getFavoriteOffers } from '../../store/app-aside-process/app-aside-process.selectors';
+import { getFavoriteOffers } from '../../store/app-process/app-process.selectors';
 import { PageTitle } from '../../utils/const';
 
 function Favorites(): JSX.Element {

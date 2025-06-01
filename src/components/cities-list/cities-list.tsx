@@ -3,8 +3,8 @@ import { memo, MouseEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { City } from '../../types/offer';
 import { CITIES } from '../../utils/const';
-import { setActiveCity } from '../../store/app-aside-process/app-aside-process.slice';
-import { getCity } from '../../store/app-aside-process/app-aside-process.selectors';
+import { setActiveCity } from '../../store/app-process/app-process.slice';
+import { getCity } from '../../store/app-process/app-process.selectors';
 
 function CitiesList(): JSX.Element {
   const activeCity = useAppSelector(getCity);

@@ -91,7 +91,7 @@ export const fetchFavoriteOffersAction = createAsyncThunk<Offers, undefined, {
   },
 );
 
-export const toggleFavoriteOfferAction = createAsyncThunk<Offer, {id: string; isFavorite: boolean}, {
+export const toggleFavoriteOfferAction = createAsyncThunk<Offer | DetailedOffer, {id: string; isFavorite: boolean}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

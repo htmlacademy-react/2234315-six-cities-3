@@ -8,7 +8,7 @@ export const getRatingPercent = (number: number, maxRating: number): string => {
   return `${percent}%`;
 };
 
-export function formatDate(dateString: string, formatType: 'short' | 'full'): string {
+export const formatDate = (dateString: string, formatType: 'short' | 'full'): string => {
   const date = new Date(dateString);
   const months: string[] = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -27,9 +27,9 @@ export function formatDate(dateString: string, formatType: 'short' | 'full'): st
   } else {
     throw new Error('Invalid format type. Use "full" or "short".');
   }
-}
+};
 
-export function sortOffers(offers: Offers, sortType: SortType): Offers {
+export const sortOffers = (offers: Offers, sortType: SortType): Offers => {
   switch (sortType) {
     case SortType.PriceLowToHigh:
       return [...offers].sort((a, b) => a.price - b.price);
@@ -41,20 +41,20 @@ export function sortOffers(offers: Offers, sortType: SortType): Offers {
     default:
       return [...offers];
   }
-}
+};
 
-export function capitalizeFirstLetter(str: string | undefined): string {
+export const capitalizeFirstLetter = (str: string | undefined): string => {
   if (!str) {
     return '';
   }
 
   return str.charAt(0).toUpperCase() + str.slice(1);
-}
+};
 
-export function sortReviewByNewest(reviews: Reviews): Reviews {
-  return reviews.slice().sort((a, b) => {
+export const sortReviewByNewest = (reviews: Reviews): Reviews => (
+  reviews.slice().sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
     return dateB.getTime() - dateA.getTime();
-  });
-}
+  })
+);

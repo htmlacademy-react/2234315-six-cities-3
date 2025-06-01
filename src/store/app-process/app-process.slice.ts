@@ -1,24 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-  checkAuthAction,
   fetchFavoriteOffersAction,
   fetchOffersAction,
   logoutAction,
   toggleFavoriteOfferAction
 } from '../api-actions';
-import { AppAsideProcess } from '../../types/state';
+import { AppProcess } from '../../types/state';
 import { City } from '../../types/offer';
 import { CITIES, NameSpace } from '../../utils/const';
 
-const initialState: AppAsideProcess = {
+const initialState: AppProcess = {
   city: CITIES[0],
   offers: [],
   favoriteOffers: [],
   isOffersLoading: false,
 };
 
-export const appAsideProcess = createSlice({
-  name: NameSpace.AppAside,
+export const appProcess = createSlice({
+  name: NameSpace.App,
   initialState,
   reducers: {
     setActiveCity: (state, action: PayloadAction<City>)=> {
@@ -71,4 +70,4 @@ export const appAsideProcess = createSlice({
   }
 });
 
-export const { setActiveCity } = appAsideProcess.actions;
+export const { setActiveCity } = appProcess.actions;

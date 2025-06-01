@@ -7,7 +7,7 @@ import { Offers } from '../../types/offer';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../utils/const';
 
 import 'leaflet/dist/leaflet.css';
-import { getCity } from '../../store/app-aside-process/app-aside-process.selectors';
+import { getCity } from '../../store/app-process/app-process.selectors';
 import { getCurrentOffer } from '../../store/current-offer-process/current-offer-process.selectors';
 
 type MapProps = {

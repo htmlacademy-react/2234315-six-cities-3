@@ -44,6 +44,13 @@ export enum SortType {
   TopRatedFirst = 'Top rated first'
 }
 
+export enum OfferType {
+  Apartment = 'apartment',
+  Room = 'room',
+  House = 'house',
+  Hotel = 'hotel',
+}
+
 export enum FavoritesChangeStatus {
   Remove = 0,
   Add = 1
@@ -114,7 +121,7 @@ export const CITIES = [
 ];
 
 export enum NameSpace {
-  AppAside = 'APP_ASIDE',
+  App = 'APP',
   CurrentOffer = 'CURRENT_OFFER',
   User = 'USER',
 }
