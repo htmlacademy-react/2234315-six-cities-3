@@ -39,25 +39,34 @@ export const appAsideProcess = createSlice({
       })
       .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
         state.favoriteOffers = action.payload;
+
+        state.offers.map((offer) => {
+          const favoritedOffer = action.payload.find((favoriteOffer) => favoriteOffer.id === offer.id);
+
+          if (favoritedOffer) {
+            offer.isFavorite = true;
+          }
+        });
       })
       .addCase(toggleFavoriteOfferAction.fulfilled, (state, action) => {
+        const offerToUpdate = state.offers.find((item) => item.id === action.payload.id);
+
+        if (offerToUpdate) {
+          offerToUpdate.isFavorite = action.payload.isFavorite;
+        }
+
         if (action.payload.isFavorite) {
           state.favoriteOffers.push(action.payload);
         } else {
           state.favoriteOffers = state.favoriteOffers.filter((offer) => offer.id !== action.payload.id);
         }
-
-        state.offers.forEach((item) => {
-          if (item.id === action.payload.id) {
-            item.isFavorite = action.payload.isFavorite;
-          }
-        });
-      })
-      .addCase(checkAuthAction.rejected, (state) => {
-        state.favoriteOffers = [];
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.favoriteOffers = [];
+
+        state.offers.forEach((item) => {
+          item.isFavorite = false;
+        });
       });
   }
 });

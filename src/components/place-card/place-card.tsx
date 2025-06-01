@@ -57,7 +57,7 @@ function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardPr
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button ${isAuthorized && cardInfo.isFavorite && 'place-card__bookmark-button--active'} button`}
+            className={`place-card__bookmark-button ${cardInfo.isFavorite && 'place-card__bookmark-button--active'} button`}
             type="button"
             onClick={() => handleBookmarkClick(cardInfo)}
           >

@@ -41,7 +41,7 @@ function OfferDetails({offer}: OfferDetailsProps): JSX.Element {
           <svg className="offer__bookmark-icon" width="31" height="33">
             <use xlinkHref="#icon-bookmark"></use>
           </svg>
-          <span className="visually-hidden">${isAuthorized && offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
+          <span className="visually-hidden">${offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
         </button>
       </div>
       <div className="offer__rating rating">
