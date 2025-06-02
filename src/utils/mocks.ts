@@ -2,7 +2,7 @@ import { datatype, lorem, helpers, address, image, name, internet, date } from '
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { DetailedOffer, Offer } from '../types/offer';
-import { CITIES, OfferType } from './const';
+import { AuthorizationStatus, CITIES, OfferType } from './const';
 import { UserData } from '../types/user-data';
 import { Review } from '../types/review';
 import { State } from '../types/state';
@@ -107,4 +107,25 @@ export const makeFakeUserData = (): UserData => ({
   isPro: datatype.boolean(),
   email: internet.email(),
   token: btoa(internet.email())
+});
+
+export const makeFakeStore = (initialState?: Partial<State>): State => ({
+  APP: {
+    city: CITIES[0],
+    offers: [makeFakeOffer()],
+    favoriteOffers: [],
+    isOffersLoading: false,
+  },
+  CURRENT_OFFER: {
+    currentOffer: null,
+    nearbyOffers: [makeFakeOffer()],
+    comments: [],
+    isCurrentOfferLoading: false,
+    isCurrentOfferNotFound: false,
+  },
+  USER: {
+    authorizationStatus: AuthorizationStatus.Auth,
+    userData: makeFakeUserData(),
+  },
+  ...initialState ?? {},
 });
