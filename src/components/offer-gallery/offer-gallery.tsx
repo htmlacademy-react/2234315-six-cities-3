@@ -10,7 +10,7 @@ function OfferGallery({offer}: OfferGalleryProps): JSX.Element {
   const images = offer.images.slice(0, OFFER_GALLERY_MAX_LENGHT);
 
   return (
-    <div className="offer__gallery-container container">
+    <div className="offer__gallery-container container" data-testid="gallery-container">
       <div className="offer__gallery">
         {images.map((src) => (
           <div key={src} className="offer__image-wrapper">

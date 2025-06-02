@@ -82,7 +82,7 @@ export const makeFakeDetailedOffer = (): DetailedOffer => {
       isPro: datatype.boolean(),
     },
     images: Array.from(
-      { length: datatype.number({ min: 1, max: 6 }) },
+      { length: datatype.number({ min: 1, max: 10 }) },
       () => image.imageUrl()
     ),
     maxAdults: datatype.number({ min: 1, max: 7 }),
