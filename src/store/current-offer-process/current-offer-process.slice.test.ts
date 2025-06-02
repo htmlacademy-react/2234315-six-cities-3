@@ -5,7 +5,8 @@ import { currentOfferProcess, resetCurrentOfferState } from './current-offer-pro
 
 
 describe('CurrentOfferProcess slice', () => {
-  const mockOffer = makeFakeDetailedOffer();
+  const mockOffer = makeFakeOffer();
+  const mockDetailedOffer = makeFakeDetailedOffer();
   const mockComment = makeFakeComment();
   const mockNearbyOffers = Array.from({ length: 10 }, () => makeFakeOffer());
 
@@ -39,7 +40,7 @@ describe('CurrentOfferProcess slice', () => {
 
   it('should reset state with "resetCurrentOfferState" action', () => {
     const initialState = {
-      currentOffer: mockOffer,
+      currentOffer: mockDetailedOffer,
       nearbyOffers: mockNearbyOffers,
       comments: [mockComment],
       isCurrentOfferLoading: false,
@@ -77,10 +78,10 @@ describe('CurrentOfferProcess slice', () => {
       };
       const result = currentOfferProcess.reducer(
         initialState,
-        fetchCurrentOfferAction.fulfilled(mockOffer, '', mockOffer.id)
+        fetchCurrentOfferAction.fulfilled(mockDetailedOffer, '', mockDetailedOffer.id)
       );
 
-      expect(result.currentOffer).toEqual(mockOffer);
+      expect(result.currentOffer).toEqual(mockDetailedOffer);
       expect(result.isCurrentOfferLoading).toBe(false);
       expect(result.isCurrentOfferNotFound).toBe(false);
     });
@@ -95,7 +96,7 @@ describe('CurrentOfferProcess slice', () => {
       };
       const result = currentOfferProcess.reducer(
         initialState,
-        fetchCurrentOfferAction.rejected(new Error(), '', mockOffer.id)
+        fetchCurrentOfferAction.rejected(new Error(), '', mockDetailedOffer.id)
       );
 
       expect(result.isCurrentOfferLoading).toBe(false);
@@ -106,7 +107,7 @@ describe('CurrentOfferProcess slice', () => {
   describe('fetchNearbyOffersAction', () => {
     it('should set "isCurrentOfferLoading" to "true" with "fetchNearbyOffersAction.pending"', () => {
       const initialState = {
-        currentOffer: mockOffer,
+        currentOffer: mockDetailedOffer,
         nearbyOffers: [],
         comments: [],
         isCurrentOfferLoading: false,
@@ -119,7 +120,7 @@ describe('CurrentOfferProcess slice', () => {
 
     it('should set nearby offers limited by OFFER_NEARBY_MAX_LENGHT with "fetchNearbyOffersAction.fulfilled"', () => {
       const initialState = {
-        currentOffer: mockOffer,
+        currentOffer: mockDetailedOffer,
         nearbyOffers: [],
         comments: [],
         isCurrentOfferLoading: true,
@@ -127,7 +128,7 @@ describe('CurrentOfferProcess slice', () => {
       };
       const result = currentOfferProcess.reducer(
         initialState,
-        fetchNearbyOffersAction.fulfilled(mockNearbyOffers, '', mockOffer.id)
+        fetchNearbyOffersAction.fulfilled(mockNearbyOffers, '', mockDetailedOffer.id)
       );
 
       expect(result.nearbyOffers.length).toBe(OFFER_NEARBY_MAX_LENGHT);
@@ -136,7 +137,7 @@ describe('CurrentOfferProcess slice', () => {
 
     it('should set "isCurrentOfferLoading" to "false" with "fetchNearbyOffersAction.rejected"', () => {
       const initialState = {
-        currentOffer: mockOffer,
+        currentOffer: mockDetailedOffer,
         nearbyOffers: [],
         comments: [],
         isCurrentOfferLoading: true,
@@ -144,7 +145,7 @@ describe('CurrentOfferProcess slice', () => {
       };
       const result = currentOfferProcess.reducer(
         initialState,
-        fetchNearbyOffersAction.rejected(null, '', mockOffer.id)
+        fetchNearbyOffersAction.rejected(null, '', mockDetailedOffer.id)
       );
 
       expect(result.isCurrentOfferLoading).toBe(false);
@@ -154,7 +155,7 @@ describe('CurrentOfferProcess slice', () => {
   describe('fetchCommentsAction', () => {
     it('should set "isCurrentOfferLoading" to "true" with "fetchCommentsAction.pending"', () => {
       const initialState = {
-        currentOffer: mockOffer,
+        currentOffer: mockDetailedOffer,
         nearbyOffers: [],
         comments: [],
         isCurrentOfferLoading: false,
@@ -167,7 +168,7 @@ describe('CurrentOfferProcess slice', () => {
 
     it('should set comments with "fetchCommentsAction.fulfilled"', () => {
       const initialState = {
-        currentOffer: mockOffer,
+        currentOffer: mockDetailedOffer,
         nearbyOffers: [],
         comments: [],
         isCurrentOfferLoading: true,
@@ -176,7 +177,7 @@ describe('CurrentOfferProcess slice', () => {
       const mockComments = [mockComment];
       const result = currentOfferProcess.reducer(
         initialState,
-        fetchCommentsAction.fulfilled(mockComments, '', mockOffer.id)
+        fetchCommentsAction.fulfilled(mockComments, '', mockDetailedOffer.id)
       );
 
       expect(result.comments).toEqual(mockComments);
@@ -185,7 +186,7 @@ describe('CurrentOfferProcess slice', () => {
 
     it('should set "isCurrentOfferLoading" to "false" with "fetchCommentsAction.rejected"', () => {
       const initialState = {
-        currentOffer: mockOffer,
+        currentOffer: mockDetailedOffer,
         nearbyOffers: [],
         comments: [],
         isCurrentOfferLoading: true,
@@ -193,7 +194,7 @@ describe('CurrentOfferProcess slice', () => {
       };
       const result = currentOfferProcess.reducer(
         initialState,
-        fetchCommentsAction.rejected(null, '', mockOffer.id)
+        fetchCommentsAction.rejected(null, '', mockDetailedOffer.id)
       );
 
       expect(result.isCurrentOfferLoading).toBe(false);
@@ -203,7 +204,7 @@ describe('CurrentOfferProcess slice', () => {
   describe('sendCommentAction', () => {
     it('should add new comment to start of comments list with "sendCommentAction.fulfilled"', () => {
       const initialState = {
-        currentOffer: mockOffer,
+        currentOffer: mockDetailedOffer,
         nearbyOffers: [],
         comments: [mockComment],
         isCurrentOfferLoading: false,
@@ -213,7 +214,7 @@ describe('CurrentOfferProcess slice', () => {
       const result = currentOfferProcess.reducer(
         initialState,
         sendCommentAction.fulfilled(newComment, '', {
-          offerId: mockOffer.id,
+          offerId: mockDetailedOffer.id,
           comment: 'Test comment',
           rating: 5
         })
@@ -227,7 +228,7 @@ describe('CurrentOfferProcess slice', () => {
   describe('toggleFavoriteOfferAction', () => {
     it('should update current offer favorite status with "toggleFavoriteOfferAction.fulfilled"', () => {
       const initialState = {
-        currentOffer: { ...mockOffer, isFavorite: false },
+        currentOffer: { ...mockDetailedOffer, isFavorite: false },
         nearbyOffers: [],
         comments: [],
         isCurrentOfferLoading: false,
@@ -237,9 +238,9 @@ describe('CurrentOfferProcess slice', () => {
       const result = currentOfferProcess.reducer(
         initialState,
         toggleFavoriteOfferAction.fulfilled(
-          { ...mockOffer, isFavorite: true },
+          { ...mockOffer, id: mockDetailedOffer.id,isFavorite: true },
           '',
-          { id: mockOffer.id, isFavorite: true }
+          { id: mockDetailedOffer.id, isFavorite: true }
         )
       );
 
@@ -250,7 +251,7 @@ describe('CurrentOfferProcess slice', () => {
   describe('logoutAction', () => {
     it('should reset favorite status for current offer and nearby offers with "logoutAction.fulfilled"', () => {
       const initialState = {
-        currentOffer: { ...mockOffer, isFavorite: true },
+        currentOffer: { ...mockDetailedOffer, isFavorite: true },
         nearbyOffers: [{ ...makeFakeOffer(), isFavorite: true }],
         comments: [],
         isCurrentOfferLoading: false,
