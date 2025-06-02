@@ -1,8 +1,16 @@
 import { datatype, lorem, helpers, address, image, name, internet, date } from 'faker';
+import { Action } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import { DetailedOffer, Offer } from '../types/offer';
 import { CITIES, OfferType } from './const';
 import { UserData } from '../types/user-data';
 import { Review } from '../types/review';
+import { State } from '../types/state';
+import { createAPI } from '../services/api';
+
+export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
+
+export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
 
 export const randomCity = helpers.randomize(Object.values(CITIES));
 
