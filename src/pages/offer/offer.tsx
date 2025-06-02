@@ -16,7 +16,7 @@ import { fetchCurrentOfferAction, fetchCommentsAction, fetchNearbyOffersAction }
 import { AuthorizationStatus, CITIES, PageTitle } from '../../utils/const';
 import Layout from '../../components/layout/layout';
 import { resetCurrentOfferState } from '../../store/current-offer-process/current-offer-process.slice';
-import { setActiveCity } from '../../store/app-aside-process/app-aside-process.slice';
+import { setActiveCity } from '../../store/app-process/app-process.slice';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import {
   getComments,

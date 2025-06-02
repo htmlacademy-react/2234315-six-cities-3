@@ -4,7 +4,7 @@ import { City, DetailedOffer, Offers } from './offer';
 import { Reviews } from './review';
 import { UserData } from './user-data';
 
-export type AppAsideProcess = {
+export type AppProcess = {
   city: City;
   offers: Offers;
   isOffersLoading: boolean;

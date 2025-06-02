@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../../utils/const';
 import { getAuthorizationStatus, getUserData } from '../../store/user-process/user-process.selectors';
-import { getFavoriteOffers } from '../../store/app-aside-process/app-aside-process.selectors';
+import { getFavoriteOffers } from '../../store/app-process/app-process.selectors';
 
 function Header(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);

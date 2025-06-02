@@ -1,3 +1,5 @@
+import { OfferType } from '../utils/const';
+
 export type Location = {
   latitude: number;
   longitude: number;
@@ -18,7 +20,7 @@ export type Host = {
 export type Offer = {
   id: string;
   title: string;
-  type: 'apartment' | 'room' | 'house' | 'hotel';
+  type: OfferType;
   price: number;
   previewImage: string;
   city: City;
@@ -31,7 +33,7 @@ export type Offer = {
 export type DetailedOffer = {
   id: string;
   title: string;
-  type: 'apartment' | 'room' | 'house' | 'hotel';
+  type: OfferType;
   price: number;
   city: City;
   location: Location;

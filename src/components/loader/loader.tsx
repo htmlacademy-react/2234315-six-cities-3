@@ -3,7 +3,7 @@ import './loader.css';
 
 function Loader(): JSX.Element {
   return (
-    <div className="loader-wrapper">
+    <div className="loader-wrapper" data-testid="loader-container">
       <div className="loader"></div>
     </div>
   );

@@ -12,7 +12,7 @@ import { useAppSelector } from '../../hooks';
 import { sortOffers } from '../../utils/tools';
 import { AuthorizationStatus, PageTitle, SortType } from '../../utils/const';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
-import { getCity, getOffers, getOffersLoadingStatus } from '../../store/app-aside-process/app-aside-process.selectors';
+import { getCity, getOffers, getOffersLoadingStatus } from '../../store/app-process/app-process.selectors';
 
 function Home(): JSX.Element {
   const [activeOfferId, setActiveOfferId] = useState<string | undefined>(undefined);

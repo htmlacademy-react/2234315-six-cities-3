@@ -6,7 +6,7 @@ import Layout from '../../components/layout/layout';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AppRoute, AUTH_PASSWORD_PATTERN, CITIES, PageTitle } from '../../utils/const';
-import { setActiveCity } from '../../store/app-aside-process/app-aside-process.slice';
+import { setActiveCity } from '../../store/app-process/app-process.slice';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);

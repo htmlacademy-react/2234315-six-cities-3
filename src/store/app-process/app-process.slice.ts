@@ -1,24 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-  checkAuthAction,
   fetchFavoriteOffersAction,
   fetchOffersAction,
   logoutAction,
   toggleFavoriteOfferAction
 } from '../api-actions';
-import { AppAsideProcess } from '../../types/state';
+import { AppProcess } from '../../types/state';
 import { City } from '../../types/offer';
 import { CITIES, NameSpace } from '../../utils/const';
 
-const initialState: AppAsideProcess = {
+const initialState: AppProcess = {
   city: CITIES[0],
   offers: [],
   favoriteOffers: [],
   isOffersLoading: false,
 };
 
-export const appAsideProcess = createSlice({
-  name: NameSpace.AppAside,
+export const appProcess = createSlice({
+  name: NameSpace.App,
   initialState,
   reducers: {
     setActiveCity: (state, action: PayloadAction<City>)=> {
@@ -39,27 +38,36 @@ export const appAsideProcess = createSlice({
       })
       .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
         state.favoriteOffers = action.payload;
+
+        state.offers.map((offer) => {
+          const favoritedOffer = action.payload.find((favoriteOffer) => favoriteOffer.id === offer.id);
+
+          if (favoritedOffer) {
+            offer.isFavorite = true;
+          }
+        });
       })
       .addCase(toggleFavoriteOfferAction.fulfilled, (state, action) => {
+        const offerToUpdate = state.offers.find((item) => item.id === action.payload.id);
+
+        if (offerToUpdate) {
+          offerToUpdate.isFavorite = action.payload.isFavorite;
+        }
+
         if (action.payload.isFavorite) {
           state.favoriteOffers.push(action.payload);
         } else {
           state.favoriteOffers = state.favoriteOffers.filter((offer) => offer.id !== action.payload.id);
         }
-
-        state.offers.forEach((item) => {
-          if (item.id === action.payload.id) {
-            item.isFavorite = action.payload.isFavorite;
-          }
-        });
-      })
-      .addCase(checkAuthAction.rejected, (state) => {
-        state.favoriteOffers = [];
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.favoriteOffers = [];
+
+        state.offers.forEach((item) => {
+          item.isFavorite = false;
+        });
       });
   }
 });
 
-export const { setActiveCity } = appAsideProcess.actions;
+export const { setActiveCity } = appProcess.actions;

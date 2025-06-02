@@ -4,7 +4,8 @@ import {
   fetchCommentsAction,
   fetchNearbyOffersAction,
   sendCommentAction,
-  toggleFavoriteOfferAction
+  toggleFavoriteOfferAction,
+  logoutAction
 } from '../api-actions';
 import { CurrentOfferProcess } from '../../types/state';
 import { NameSpace, OFFER_NEARBY_MAX_LENGHT } from '../../utils/const';
@@ -66,17 +67,18 @@ export const currentOfferProcess = createSlice({
         state.comments = [action.payload, ...state.comments];
       })
       .addCase(toggleFavoriteOfferAction.fulfilled, (state, action) => {
-        if (state.nearbyOffers.length !== 0) {
-          state.nearbyOffers.forEach((item) => {
-            if (item.id === action.payload.id) {
-              item.isFavorite = action.payload.isFavorite;
-            }
-          });
-        }
-
         if (state.currentOffer && state.currentOffer.id === action.payload.id) {
           state.currentOffer.isFavorite = action.payload.isFavorite;
         }
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        if (state.currentOffer) {
+          state.currentOffer.isFavorite = false;
+        }
+
+        state.nearbyOffers.forEach((item) => {
+          item.isFavorite = false;
+        });
       });
   }
 });
