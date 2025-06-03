@@ -12,7 +12,7 @@ type LayoutProps = {
 
 function Layout({ pageTitle, className, withFooter, children }: LayoutProps) {
   return (
-    <div className={cn('page', className)}>
+    <div className={cn('page', className)} data-testid="layout">
       <Helmet>
         <title>{pageTitle}</title>
       </Helmet>

@@ -32,6 +32,7 @@ function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardPr
   return (
     <article
       className={`${cardType && `${cardType}__card`} place-card`}
+      data-testid="place-card"
       onMouseEnter={() => onMouseEnter?.(cardInfo.id)}
       onMouseLeave={() => onMouseLeave?.()}
     >
@@ -58,6 +59,7 @@ function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardPr
           </div>
           <button
             className={`place-card__bookmark-button ${cardInfo.isFavorite && 'place-card__bookmark-button--active'} button`}
+            data-testid="bookmark-button"
             type="button"
             onClick={() => handleBookmarkClick(cardInfo)}
           >
@@ -68,7 +70,7 @@ function PlaceCard({cardInfo, cardType, onMouseEnter, onMouseLeave}: PlaceCardPr
           </button>
         </div>
         <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
+          <div className="place-card__stars rating__stars" data-testid="rating-stars">
             <span style={{ width: getRatingPercent(cardInfo.rating, OFFER_MAX_RATING) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
