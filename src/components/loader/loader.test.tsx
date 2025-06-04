@@ -8,7 +8,8 @@ describe('Component: Loader', () => {
     render(<Loader />);
 
     const loaderContainer = screen.getByTestId(loaderContainerTestId);
-
     expect(loaderContainer).toBeInTheDocument();
+
+    expect(screen.getByText(/Loading/i)).toBeInTheDocument();
   });
 });

@@ -23,6 +23,7 @@ function PlacesSorting({activeSortType, onChangeSortType}: PlacesSortingProps): 
       </span>
       <span
         className="places__sorting-type"
+        data-testid="active-sort-type"
         tabIndex={0}
         onClick={() => setIsFormOpen(!isFormOpen)}
       >
@@ -36,6 +37,7 @@ function PlacesSorting({activeSortType, onChangeSortType}: PlacesSortingProps): 
           <li
             key={type}
             className={`places__option ${type === activeSortType ? 'places__option--active' : ''}`}
+            data-testid={type}
             tabIndex={0}
             onClick={() => handleChangeSortType(type)}
           >

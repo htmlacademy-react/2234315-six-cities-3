@@ -60,7 +60,7 @@ function Offer(): JSX.Element {
     };
   }, [id, dispatch]);
 
-  if (isCurrentOfferLoading || !offer) {
+  if (isCurrentOfferLoading) {
     return (
       <Layout
         pageTitle={`${PageTitle.Offer} | ${PageTitle.Main}`}
@@ -70,7 +70,7 @@ function Offer(): JSX.Element {
     );
   }
 
-  if (isOfferNotFound) {
+  if (isOfferNotFound || !offer) {
     return (
       <NotFound />
     );

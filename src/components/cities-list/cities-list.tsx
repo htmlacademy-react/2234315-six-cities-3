@@ -22,6 +22,7 @@ function CitiesList(): JSX.Element {
           <li
             className="locations__item"
             key={city.name}
+            data-testid="city-tab"
           >
             <Link
               className={`locations__item-link tabs__item ${city === activeCity ? 'tabs__item--active' : ''}`}

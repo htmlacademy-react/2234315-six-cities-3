@@ -68,7 +68,7 @@ function Map({points, selectedPointId}: MapProps): JSX.Element {
   }, [map, points, selectedPointId, currentOffer]);
 
   return (
-    <div ref={mapRef} style={{ height: '100%' }} />
+    <div ref={mapRef} style={{ height: '100%' }} data-testid="map"/>
   );
 }
 

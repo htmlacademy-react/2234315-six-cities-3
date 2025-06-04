@@ -36,7 +36,7 @@ function Header(): JSX.Element {
             </Link>
           </div>
           {!isLoginPage &&
-            <nav className="header__nav">
+            <nav className="header__nav" data-testid="header-nav">
               <ul className="header__nav-list">
                 {authorizationStatus === AuthorizationStatus.Auth ? (
                   <>

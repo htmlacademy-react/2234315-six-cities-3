@@ -35,6 +35,7 @@ function OfferDetails({offer}: OfferDetailsProps): JSX.Element {
         <h1 className="offer__name">{offer.title}</h1>
         <button
           className={`offer__bookmark-button ${offer.isFavorite && 'offer__bookmark-button--active'} button`}
+          data-testid="bookmark-button"
           type="button"
           onClick={() => handleBookmarkClick(offer)}
         >
@@ -45,7 +46,7 @@ function OfferDetails({offer}: OfferDetailsProps): JSX.Element {
         </button>
       </div>
       <div className="offer__rating rating">
-        <div className="offer__stars rating__stars">
+        <div className="offer__stars rating__stars" data-testid="rating-stars">
           <span style={{ width: getRatingPercent(offer.rating ?? 0, OFFER_MAX_RATING) }}></span>
           <span className="visually-hidden">Rating</span>
         </div>
